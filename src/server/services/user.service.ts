@@ -1,0 +1,55 @@
+import { users, type User, type NewUser } from '../db/schemas/user.schema';
+import { hashPassword } from '../helpers/bcrypt.helpers';
+import { injectable } from 'tsyringe';
+import db from '../db/dbConnection';
+import { eq } from 'drizzle-orm';
+
+@injectable()
+export class UserService {
+  public async getUsers(): Promise<User[]> {
+    const getUsers: User[] = await db.select().from(users);
+    return getUsers;
+  }
+
+  public async getUserById(id: number): Promise<User | null> {
+    const getUser: User[] = await db.select().from(users).where(eq(users.id, id));
+    return getUser[0];
+  }
+
+  public async getUserByEmail(email: string): Promise<User | null> {
+    const getUser: User[] = await db.select().from(users).where(eq(users.email, email));
+    return getUser[0];
+  }
+
+  public async getUserByUsername(username: string): Promise<User | null> {
+    const getUser: User[] = await db.select().from(users).where(eq(users.username, username));
+    return getUser[0];
+  }
+
+  public async createUser(userData: NewUser): Promise<NewUser[]> {
+    const hashedPassword = await hashPassword(userData.password);
+
+    const newUser = {
+      username: userData.username,
+      email: userData.email,
+      password: hashedPassword.toString(),
+    };
+
+    const createUserData: NewUser[] = await db.insert(users).values(newUser).returning();
+    return createUserData;
+  }
+
+  public updateUser = async (id: string, userData: NewUser): Promise<User[]> => {
+    const userID = Number(id);
+    const updateUserData: User[] = await db.update(users).set(userData).where(eq(users.id, userID)).returning();
+
+    return updateUserData;
+  };
+
+  public deleteUser = async (id: string): Promise<User[]> => {
+    const userID = Number(id);
+    const deleteUserData: User[] = await db.delete(users).where(eq(users.id, userID)).returning();
+
+    return deleteUserData;
+  };
+}
