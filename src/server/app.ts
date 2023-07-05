@@ -6,7 +6,6 @@ import ViteExpress from 'vite-express';
 import cookieParser from 'cookie-parser';
 import morgan from 'morgan';
 import cors from 'cors';
-import path from 'path';
 import 'dotenv/config';
 
 @injectable()
@@ -25,7 +24,9 @@ class App extends Config {
   }
 
   public listen(): void {
-    ViteExpress.listen(this.app, this.port, () => console.log(`Listening on port http://localhost:${this.port}`));
+    void ViteExpress.listen(this.app, this.port, () => {
+      console.log(`Listening on port http://localhost:${this.port}`);
+    });
   }
 
   private initializeMiddlewares(): void {
