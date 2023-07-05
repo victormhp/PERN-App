@@ -12,10 +12,28 @@
     "project": "./tsconfig.json"
   },
   "plugins": ["react", "@typescript-eslint"],
+  "ignorePatterns": ["node", "dist", "**/*.config.js", "**/*.config.ts"],
   "rules": {
     "react/prop-types": "off",
-    "space-before-function-paren": ["error", { "anonymous": "always", "named": "never", "asyncArrow": "always" }],
+    "space-before-function-paren": [
+      "error",
+      {
+        "anonymous": "always",
+        "named": "never",
+        "asyncArrow": "always"
+      }
+    ],
+    "@typescript-eslint/strict-boolean-expressions": [
+      "error",
+      {
+        "allowNullableBoolean": true,
+        "allowNullableString": true,
+        "allowNullableObject": true
+      }
+    ],
     "@typescript-eslint/no-unused-vars": "warn",
+    "@typescript-eslint/no-confusing-void-expression": "off",
+    "@typescript-eslint/explicit-function-return-type": "off",
     "@typescript-eslint/no-misused-promises": [
       "error",
       {
