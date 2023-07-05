@@ -8,7 +8,7 @@ function Register() {
   const {
     data: user,
     errors,
-    isFormInvalid,
+    success,
     handleChange,
     handleSubmit,
   } = useForm<User>({
@@ -33,6 +33,7 @@ function Register() {
           ariaDescribedby='emailnote'
           value={user.email ?? ''}
           errors={errors.email ?? ''}
+          validateOnSubmit={success}
           handleChange={handleChange('email')}
         />
         <Input
@@ -44,6 +45,7 @@ function Register() {
           ariaDescribedby='pwdnote'
           value={user.password ?? ''}
           errors={errors.password ?? ''}
+          validateOnSubmit={success}
           handleChange={handleChange('password')}
         />
         <Input
@@ -55,6 +57,7 @@ function Register() {
           ariaDescribedby='uidnote'
           value={user.username ?? ''}
           errors={errors.username ?? ''}
+          validateOnSubmit={success}
           handleChange={handleChange('username')}
         />
       </div>
@@ -62,8 +65,7 @@ function Register() {
         <div className='mb-5'>
           <button
             type='submit'
-            disabled={isFormInvalid}
-            className='disabled: relative w-4/6 rounded-full bg-purple-500 px-6 py-3 text-sm font-medium transition-all hover:scale-105 focus:scale-105 disabled:cursor-not-allowed disabled:opacity-50  sm:w-1/2 sm:text-base'
+            className='disabled: relative w-4/6 rounded-full bg-purple-500 px-6 py-3 text-sm font-medium transition-all hover:scale-105 focus-visible:scale-105 sm:w-1/2 sm:text-base'
           >
             CREATE ACCOUNT
           </button>

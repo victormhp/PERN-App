@@ -27,7 +27,8 @@ function useForm<T extends Record<keyof T, any> = {}>(options?: {
 }) {
   const [data, setData] = useState<T>((options?.initialValues ?? {}) as T);
   const [errors, setErrors] = useState<ErrorRecord<T>>({});
-  const [isFormInvalid, setFormInvalid] = useState(false);
+  const [isFormValid, setFormValid] = useState(false);
+  const [success, setSuccess] = useState(true);
 
   useEffect(() => {
     const validations = options?.validations;
@@ -66,13 +67,13 @@ function useForm<T extends Record<keyof T, any> = {}>(options?: {
 
       if (!valid) {
         setErrors(newErrors);
-        setFormInvalid(true);
+        setFormValid(false);
         return;
       }
     }
 
     setErrors({});
-    setFormInvalid(false);
+    setFormValid(true);
   }, [data]);
 
   const handleChange =
@@ -89,7 +90,10 @@ function useForm<T extends Record<keyof T, any> = {}>(options?: {
   const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
 
-    if (isFormInvalid) return;
+    if (!isFormValid) {
+      setSuccess(false);
+      return;
+    }
 
     if (options?.onSubmit) {
       options.onSubmit();
@@ -99,7 +103,7 @@ function useForm<T extends Record<keyof T, any> = {}>(options?: {
   return {
     data,
     errors,
-    isFormInvalid,
+    success,
     handleChange,
     handleSubmit,
   };

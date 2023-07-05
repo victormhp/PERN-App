@@ -8,12 +8,13 @@ interface InputProps {
   type: string;
   value: string;
   placeholder: string;
-  ariaDescribedby: string;
+  ariaDescribedby?: string;
   errors: string;
+  validateOnSubmit?: boolean;
   handleChange: (event: ChangeEvent<HTMLInputElement>) => void;
 }
 
-function Input({ id, name, type, label, value, placeholder, ariaDescribedby, errors, handleChange }: InputProps) {
+function Input({ id, name, type, label, value, placeholder, ariaDescribedby, errors, validateOnSubmit, handleChange }: InputProps) {
   const [showPassword, setShowPassword] = useState(false);
   const [validateOnBlur, setValidateOnBlur] = useState(false);
 
@@ -22,7 +23,7 @@ function Input({ id, name, type, label, value, placeholder, ariaDescribedby, err
   const handleShowPassword = () => setShowPassword((prevShow: boolean) => !prevShow);
   const handleBlur = () => setValidateOnBlur(true);
 
-  const showError = errors !== '' && validateOnBlur;
+  const showError = errors !== '' && (validateOnBlur || !validateOnSubmit);
 
   return (
     <div className='my-8 mb-12'>
