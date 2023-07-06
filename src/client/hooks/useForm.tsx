@@ -28,7 +28,7 @@ function useForm<T extends Record<keyof T, any> = {}>(options?: {
   const [data, setData] = useState<T>((options?.initialValues ?? {}) as T);
   const [errors, setErrors] = useState<ErrorRecord<T>>({});
   const [isFormValid, setFormValid] = useState(false);
-  const [success, setSuccess] = useState(true);
+  const [validSubmit, setValidSubmit] = useState(true);
 
   useEffect(() => {
     const validations = options?.validations;
@@ -91,7 +91,7 @@ function useForm<T extends Record<keyof T, any> = {}>(options?: {
     event.preventDefault();
 
     if (!isFormValid) {
-      setSuccess(false);
+      setValidSubmit(false);
       return;
     }
 
@@ -103,7 +103,7 @@ function useForm<T extends Record<keyof T, any> = {}>(options?: {
   return {
     data,
     errors,
-    success,
+    validSubmit,
     handleChange,
     handleSubmit,
   };
