@@ -7,7 +7,7 @@ interface InputProps {
   label: string;
   type: string;
   value: string;
-  placeholder: string;
+  placeholder?: string;
   ariaDescribedby?: string;
   errors: string;
   validateOnSubmit?: boolean;
