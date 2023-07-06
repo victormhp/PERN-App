@@ -1,14 +1,15 @@
-import { emailValidation, passwordValidation, usernameValidation } from '../utils/validate';
-import { type User } from '../../server/db/schemas/user.schema';
+import { emailValidation, passwordValidation, usernameValidation, registerUser } from '../utils';
+import { type User } from '../models/user';
 import { Input } from '../components';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import useForm from '../hooks/useForm';
 
 function Register() {
+  const navigate = useNavigate();
   const {
     data: user,
     errors,
-    success,
+    validSubmit,
     handleChange,
     handleSubmit,
   } = useForm<User>({
@@ -17,11 +18,14 @@ function Register() {
       password: passwordValidation,
       username: usernameValidation,
     },
-    onSubmit: () => alert('User submitted!'),
+    onSubmit: async () => {
+      const userRegistered = await registerUser(user);
+      if (userRegistered) navigate('/dash');
+    },
   });
 
   return (
-    <form className='w-full max-w-lg space-y-10 text-center' onSubmit={handleSubmit}>
+    <form className='w-full max-w-lg space-y-10 text-center' onSubmit={handleSubmit} noValidate>
       <h2 className='text-3xl font-bold'>Create Account</h2>
       <div className='w-full max-w-lg rounded-md text-start'>
         <Input
@@ -33,7 +37,7 @@ function Register() {
           ariaDescribedby='emailnote'
           value={user.email ?? ''}
           errors={errors.email ?? ''}
-          validateOnSubmit={success}
+          validateOnSubmit={validSubmit}
           handleChange={handleChange('email')}
         />
         <Input
@@ -45,7 +49,7 @@ function Register() {
           ariaDescribedby='pwdnote'
           value={user.password ?? ''}
           errors={errors.password ?? ''}
-          validateOnSubmit={success}
+          validateOnSubmit={validSubmit}
           handleChange={handleChange('password')}
         />
         <Input
@@ -57,7 +61,7 @@ function Register() {
           ariaDescribedby='uidnote'
           value={user.username ?? ''}
           errors={errors.username ?? ''}
-          validateOnSubmit={success}
+          validateOnSubmit={validSubmit}
           handleChange={handleChange('username')}
         />
       </div>
