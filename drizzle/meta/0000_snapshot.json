@@ -1,7 +1,7 @@
 {
   "version": "5",
   "dialect": "pg",
-  "id": "1f71502e-a335-451b-bcc1-5d542c57755c",
+  "id": "c463c8c1-2d88-4a53-8da3-0f7180af4828",
   "prevId": "00000000-0000-0000-0000-000000000000",
   "tables": {
     "users": {
@@ -32,15 +32,15 @@
           "primaryKey": false,
           "notNull": true
         },
-        "created_at": {
-          "name": "created_at",
-          "type": "timestamp",
+        "role": {
+          "name": "role",
+          "type": "varchar(100)",
           "primaryKey": false,
           "notNull": true,
-          "default": "now()"
+          "default": "'user'"
         },
-        "updated_at": {
-          "name": "updated_at",
+        "created_at": {
+          "name": "created_at",
           "type": "timestamp",
           "primaryKey": false,
           "notNull": true,

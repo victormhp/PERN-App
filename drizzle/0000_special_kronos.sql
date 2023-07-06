@@ -3,6 +3,6 @@ CREATE TABLE IF NOT EXISTS "users" (
 	"username" varchar(100) NOT NULL,
 	"email" varchar(100) NOT NULL,
 	"password" varchar(255) NOT NULL,
-	"created_at" timestamp DEFAULT now() NOT NULL,
-	"updated_at" timestamp DEFAULT now() NOT NULL
+	"role" varchar(100) DEFAULT 'user' NOT NULL,
+	"created_at" timestamp DEFAULT now() NOT NULL
 );
