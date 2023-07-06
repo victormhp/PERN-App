@@ -1,5 +1,6 @@
+import { type Request, type Response, type NextFunction } from 'express';
+import { loginUserSchema, registerUserSchema } from '../db/schemas/user.schema';
 import { type PayloadToken } from '../types/custom';
-import { type Request, type Response } from 'express';
 import { type Secret, verify } from 'jsonwebtoken';
 import { AuthService } from '../services/auth.service';
 import { injectable, inject } from 'tsyringe';
@@ -11,10 +12,21 @@ export class AuthController extends Config {
     super();
   }
 
-  public login = async (req: Request, res: Response): Promise<void> => {
-    const { username, password }: { username: string; password: string } = req.body;
+  public register = async (req: Request, res: Response, next: NextFunction): Promise<void> => {
+    try {
+      const userData = registerUserSchema.parse(req.body);
+      const registerUser = await this.service.registerUser(userData);
 
-    const validUser = await this.service.validateUser(username, password);
+      res.status(201).json({ data: registerUser });
+    } catch (err) {
+      next(err);
+    }
+  };
+
+  public login = async (req: Request, res: Response): Promise<void> => {
+    const { email, password } = loginUserSchema.parse(req.body);
+
+    const validUser = await this.service.validateUser(email, password);
 
     if (validUser === null) {
       res.status(401).json({ message: 'Unauthorized' });

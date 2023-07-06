@@ -1,8 +1,8 @@
 import { users, type User, type NewUser } from '../db/schemas/user.schema';
-import { hashPassword } from '../helpers/bcrypt.helpers';
 import { injectable } from 'tsyringe';
 import db from '../db/dbConnection';
 import { eq } from 'drizzle-orm';
+import { hashPassword } from '../utils/bcrypt.helpers';
 
 @injectable()
 export class UserService {
@@ -12,21 +12,21 @@ export class UserService {
   }
 
   public async getUserById(id: number): Promise<User | null> {
-    const getUser: User[] = await db.select().from(users).where(eq(users.id, id));
-    return getUser[0];
+    const [getUser]: User[] = await db.select().from(users).where(eq(users.id, id));
+    return getUser;
   }
 
   public async getUserByEmail(email: string): Promise<User | null> {
-    const getUser: User[] = await db.select().from(users).where(eq(users.email, email));
-    return getUser[0];
+    const [getUser]: User[] = await db.select().from(users).where(eq(users.email, email));
+    return getUser;
   }
 
   public async getUserByUsername(username: string): Promise<User | null> {
-    const getUser: User[] = await db.select().from(users).where(eq(users.username, username));
-    return getUser[0];
+    const [getUser]: User[] = await db.select().from(users).where(eq(users.username, username));
+    return getUser;
   }
 
-  public async createUser(userData: NewUser): Promise<NewUser[]> {
+  public async createUser(userData: NewUser): Promise<User> {
     const hashedPassword = await hashPassword(userData.password);
 
     const newUser = {
@@ -35,7 +35,7 @@ export class UserService {
       password: hashedPassword.toString(),
     };
 
-    const createUserData: NewUser[] = await db.insert(users).values(newUser).returning();
+    const [createUserData] = await db.insert(users).values(newUser).returning();
     return createUserData;
   }
 
