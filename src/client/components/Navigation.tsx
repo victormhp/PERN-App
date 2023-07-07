@@ -1,10 +1,21 @@
 import { DarkModeIcon, GridViewIcon, MenuIcon } from './Icons';
-import { useMenuStore } from '../store/menuStore';
-import { NavLink } from 'react-router-dom';
+import { useAuthStore, useMenuStore } from '../store';
+import { useClickOutside } from '../hooks';
+import { useRef, useState } from 'react';
+import { NavLink, Link } from 'react-router-dom';
 import NavButton from './UI/NavButton';
 
 function Navigation() {
+  const [profileMenu, setProfileMenu] = useState(false);
+  const profileMenuRef = useRef<HTMLDivElement>(null);
+
   const toggleMenu = useMenuStore((state) => state.toggleMenu);
+  const handleLogout = useAuthStore((state) => state.logout);
+
+  const handleProfileMenu = () => setProfileMenu((prev) => !prev);
+  const handleClickOutside = () => setProfileMenu(false);
+
+  useClickOutside(profileMenuRef, handleClickOutside);
 
   return (
     <header className='border-b border-zinc-600'>
@@ -23,8 +34,24 @@ function Navigation() {
             <NavButton name='Colors' Icon={DarkModeIcon} />
             <NavButton name='Views' Icon={GridViewIcon} />
           </div>
-          <div>
-            <NavLink to='#' className='mx-3 block h-7 w-7 rounded-full bg-purple-400' />
+          <div className='relative' ref={profileMenuRef}>
+            <div className='mx-3 h-7 w-7 cursor-pointer rounded-full bg-purple-400' tabIndex={0} onClick={handleProfileMenu} />
+            {profileMenu ? (
+              <div className='absolute right-2 top-11 rounded-md border border-zinc-700 bg-zinc-800 px-2 py-3 text-center'>
+                <ul className='flex flex-col gap-4'>
+                  <li>
+                    <Link to='/' className='cursor-pointer rounded px-3 py-2 transition-all hover:bg-zinc-600'>
+                      Profile
+                    </Link>
+                  </li>
+                  <li>
+                    <Link to='/login' className='cursor-pointer rounded px-3 py-2 transition-all hover:bg-zinc-600' onClick={handleLogout}>
+                      Logout
+                    </Link>
+                  </li>
+                </ul>
+              </div>
+            ) : null}
           </div>
         </div>
       </nav>
