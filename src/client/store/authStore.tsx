@@ -1,8 +1,7 @@
 import { create } from 'zustand';
-import { persist } from 'zustand/middleware';
 
 interface State {
-  token: string | null;
+  accessToken: string;
   isAuth: boolean;
 }
 
@@ -11,20 +10,13 @@ interface Actions {
   logout: () => void;
 }
 
-export const useAuthStore = create(
-  persist<State & Actions>(
-    (set) => ({
-      token: null,
-      isAuth: false,
-      setToken: (token: string) =>
-        set(() => ({
-          token,
-          isAuth: !!token,
-        })),
-      logout: () => set(() => ({ token: null, isAuth: false })),
-    }),
-    {
-      name: 'auth',
-    }
-  )
-);
+export const useAuthStore = create<State & Actions>((set) => ({
+  accessToken: '',
+  isAuth: false,
+  setToken: (accessToken) =>
+    set(() => ({
+      accessToken,
+      isAuth: true,
+    })),
+  logout: () => set(() => ({ accessToken: '', isAuth: false })),
+}));

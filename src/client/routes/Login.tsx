@@ -1,38 +1,54 @@
 import { emailValidation, passwordValidation } from '../utils';
-import { Input } from '../components';
-import { type User } from '../models/user';
+import { Input, InvalidIcon } from '../components';
 import { Link, useNavigate } from 'react-router-dom';
-import { loginUser } from '../api/auth';
+import { type LoginCredentials, login } from '../api/auth';
 import { useAuthStore } from '../store';
 import { useForm } from '../hooks';
+import { useState } from 'react';
 
 function Login() {
+  const [unauthorized, setUnauthorized] = useState(false);
   const setToken = useAuthStore((state) => state.setToken);
   const navigate = useNavigate();
 
   const {
     data: user,
+    setData,
     errors,
     validSubmit,
     handleChange,
     handleSubmit,
-  } = useForm<User>({
+  } = useForm<LoginCredentials>({
     validations: {
       email: emailValidation,
       password: passwordValidation,
     },
     onSubmit: async () => {
-      const resLogin = await loginUser(user.email, user.password);
+      const resLogin = await login(user);
+
       if (resLogin) {
-        setToken(resLogin.data.accessToken);
+        const accessToken = resLogin.data.accessToken;
+        setToken(accessToken);
+        setData({} as LoginCredentials);
         navigate('/dashboard');
+      } else {
+        setUnauthorized(true);
       }
     },
   });
 
   return (
-    <form className='w-full max-w-lg space-y-10 text-center' onSubmit={handleSubmit} noValidate>
+    <form className='w-full max-w-lg text-center' onSubmit={handleSubmit} noValidate>
       <h2 className='text-3xl font-bold'>Log In to PERN Notes</h2>
+      {unauthorized ? (
+        <div
+          aria-label='Error indicator'
+          className='mt-8 flex select-none items-center rounded bg-red-500 bg-opacity-20 p-2 text-sm text-red-500'
+        >
+          <InvalidIcon />
+          <span className='ml-1'>The email address or password is incorrect. Please try again.</span>
+        </div>
+      ) : null}
       <div className='w-full max-w-lg rounded-md text-start'>
         <Input
           id='email'
@@ -57,22 +73,20 @@ function Login() {
           handleChange={handleChange('password')}
         />
       </div>
-      <div>
-        <div className='mb-5'>
-          <button
-            type='submit'
-            className='disabled: relative w-4/6 rounded-full bg-purple-500 px-6 py-3 text-sm font-medium transition-all hover:scale-105 focus-visible:scale-105 sm:w-1/2 sm:text-base'
-          >
-            Log In
-          </button>
-        </div>
-        <p className='text-cetner text-xs sm:text-sm'>
-          Don&apos;t have an account?
-          <Link to='/register' className='ml-2 font-bold text-purple-400 duration-150 hover:text-zinc-200 focus:text-zinc-200'>
-            SIGN UP
-          </Link>
-        </p>
+      <div className='m-5'>
+        <button
+          type='submit'
+          className='disabled: relative w-4/6 rounded-full bg-purple-500 px-6 py-3 text-sm font-medium transition-all hover:scale-105 focus-visible:scale-105 sm:w-1/2 sm:text-base'
+        >
+          Log In
+        </button>
       </div>
+      <p className='text-cetner text-xs sm:text-sm'>
+        Don&apos;t have an account?
+        <Link to='/register' className='ml-2 font-bold text-purple-400 duration-150 hover:text-zinc-200 focus:text-zinc-200'>
+          SIGN UP
+        </Link>
+      </p>
     </form>
   );
 }

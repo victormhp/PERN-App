@@ -1,10 +1,14 @@
 import axios from './axios';
-import { type User } from '../models/user';
 
-export async function registerUser(data: User) {
+export interface RegisterCredentials {
+  email: string;
+  password: string;
+  username: string;
+}
+
+export async function register(data: RegisterCredentials) {
   try {
-    const userData = JSON.stringify(data);
-    const res = await axios.post('/register', userData, {
+    const res = await axios.post('/register', data, {
       headers: { 'Content-Type': 'application/json' },
       withCredentials: true,
     });
@@ -15,16 +19,17 @@ export async function registerUser(data: User) {
   }
 }
 
-export async function loginUser(email: string, password: string) {
+export interface LoginCredentials {
+  email: string;
+  password: string;
+}
+
+export async function login(data: LoginCredentials) {
   try {
-    const res = await axios.post(
-      '/login',
-      { email, password },
-      {
-        headers: { 'Content-Type': 'application/json' },
-        withCredentials: true,
-      }
-    );
+    const res = await axios.post('/login', data, {
+      headers: { 'Content-Type': 'application/json' },
+      withCredentials: true,
+    });
 
     return res;
   } catch (err) {

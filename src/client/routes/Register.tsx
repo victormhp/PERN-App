@@ -1,6 +1,5 @@
 import { emailValidation, passwordValidation, usernameValidation } from '../utils';
-import { registerUser } from '../api/auth';
-import { type User } from '../models/user';
+import { type RegisterCredentials, register } from '../api/auth';
 import { Input } from '../components';
 import { Link, useNavigate } from 'react-router-dom';
 import { useForm } from '../hooks';
@@ -12,20 +11,24 @@ function Register() {
 
   const {
     data: user,
+    setData,
     errors,
     validSubmit,
     handleChange,
     handleSubmit,
-  } = useForm<User>({
+  } = useForm<RegisterCredentials>({
     validations: {
       email: emailValidation,
       password: passwordValidation,
       username: usernameValidation,
     },
     onSubmit: async () => {
-      const resRegister = await registerUser(user);
+      const resRegister = await register(user);
+
       if (resRegister) {
-        setToken(resRegister.data.accessToken);
+        const accessToken = resRegister.data.accessToken;
+        setToken(accessToken);
+        setData({} as RegisterCredentials);
         navigate('/dashboard');
       }
     },
