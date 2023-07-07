@@ -1,4 +1,4 @@
-interface MenuButtonProps {
+interface Props {
   name: string;
   active: string;
   isMenuOpen: boolean;
@@ -6,7 +6,7 @@ interface MenuButtonProps {
   onClick?: (event: React.MouseEvent<HTMLDivElement, MouseEvent>) => void;
 }
 
-function MenuButton({ name, active, isMenuOpen, Icon, onClick }: MenuButtonProps) {
+function MenuButton({ name, active, isMenuOpen, Icon, onClick }: Props) {
   const activeStyles =
     active === name
       ? 'bg-purple-400 bg-opacity-30'

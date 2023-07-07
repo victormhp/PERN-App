@@ -1,7 +1,7 @@
 import { HidePasswordIcon, InvalidIcon, ShowPasswordIcon } from '../Icons';
 import { type ChangeEvent, useState } from 'react';
 
-interface InputProps {
+interface Props {
   id: string;
   name: string;
   label: string;
@@ -14,7 +14,7 @@ interface InputProps {
   handleChange: (event: ChangeEvent<HTMLInputElement>) => void;
 }
 
-function Input({ id, name, type, label, value, placeholder, ariaDescribedby, errors, validateOnSubmit, handleChange }: InputProps) {
+function Input({ id, name, type, label, value, placeholder, ariaDescribedby, errors, validateOnSubmit, handleChange }: Props) {
   const [showPassword, setShowPassword] = useState(false);
   const [validateOnBlur, setValidateOnBlur] = useState(false);
 
