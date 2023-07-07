@@ -1,11 +1,15 @@
-import { emailValidation, passwordValidation, usernameValidation, registerUser } from '../utils';
+import { emailValidation, passwordValidation, usernameValidation } from '../utils';
+import { registerUser } from '../api/auth';
 import { type User } from '../models/user';
 import { Input } from '../components';
 import { Link, useNavigate } from 'react-router-dom';
-import useForm from '../hooks/useForm';
+import { useForm } from '../hooks';
+import { useAuthStore } from '../store';
 
 function Register() {
+  const setToken = useAuthStore((state) => state.setToken);
   const navigate = useNavigate();
+
   const {
     data: user,
     errors,
@@ -19,8 +23,11 @@ function Register() {
       username: usernameValidation,
     },
     onSubmit: async () => {
-      const userRegistered = await registerUser(user);
-      if (userRegistered) navigate('/dash');
+      const resRegister = await registerUser(user);
+      if (resRegister) {
+        setToken(resRegister.data.accessToken);
+        navigate('/dashboard');
+      }
     },
   });
 

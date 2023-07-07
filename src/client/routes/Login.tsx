@@ -1,10 +1,13 @@
-import { type User } from '../models/user';
+import { emailValidation, passwordValidation } from '../utils';
 import { Input } from '../components';
+import { type User } from '../models/user';
 import { Link, useNavigate } from 'react-router-dom';
-import { emailValidation, loginUser, passwordValidation } from '../utils';
-import useForm from '../hooks/useForm';
+import { loginUser } from '../api/auth';
+import { useAuthStore } from '../store';
+import { useForm } from '../hooks';
 
 function Login() {
+  const setToken = useAuthStore((state) => state.setToken);
   const navigate = useNavigate();
 
   const {
@@ -19,8 +22,11 @@ function Login() {
       password: passwordValidation,
     },
     onSubmit: async () => {
-      const userRegistered = await loginUser(user);
-      if (userRegistered) navigate('/dash');
+      const resLogin = await loginUser(user.email, user.password);
+      if (resLogin) {
+        setToken(resLogin.data.accessToken);
+        navigate('/dashboard');
+      }
     },
   });
 
