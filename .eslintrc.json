@@ -23,6 +23,7 @@
         "asyncArrow": "always"
       }
     ],
+    "no-useless-return": "off",
     "@typescript-eslint/strict-boolean-expressions": [
       "error",
       {
@@ -31,6 +32,7 @@
         "allowNullableObject": true
       }
     ],
+    "@typescript-eslint/consistent-type-assertions": "off",
     "@typescript-eslint/no-unused-vars": "warn",
     "@typescript-eslint/no-confusing-void-expression": "off",
     "@typescript-eslint/explicit-function-return-type": "off",
