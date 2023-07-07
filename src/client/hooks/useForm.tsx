@@ -20,12 +20,8 @@ type ErrorRecord<T> = Partial<Record<keyof T, string>>;
 
 type Validations<T extends {}> = Partial<Record<keyof T, Validation>>;
 
-function useForm<T extends Record<keyof T, any> = {}>(options?: {
-  validations?: Validations<T>;
-  initialValues?: Partial<T>;
-  onSubmit?: () => void;
-}) {
-  const [data, setData] = useState<T>((options?.initialValues ?? {}) as T);
+function useForm<T extends Record<keyof T, any> = {}>(options?: { validations?: Validations<T>; onSubmit?: () => void }) {
+  const [data, setData] = useState<T>({} as T);
   const [errors, setErrors] = useState<ErrorRecord<T>>({});
   const [isFormValid, setFormValid] = useState(false);
   const [validSubmit, setValidSubmit] = useState(true);
@@ -102,6 +98,7 @@ function useForm<T extends Record<keyof T, any> = {}>(options?: {
 
   return {
     data,
+    setData,
     errors,
     validSubmit,
     handleChange,
