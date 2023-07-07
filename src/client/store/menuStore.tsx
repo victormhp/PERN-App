@@ -1,13 +1,16 @@
 import { create } from 'zustand';
 
-interface MenuState {
+interface State {
   isMenuOpen: boolean;
   isMenuClicked: boolean;
+}
+
+interface Actions {
   toggleMenu: () => void;
   hoverMenu: () => void;
 }
 
-export const useMenuStore = create<MenuState>((set) => ({
+export const useMenuStore = create<State & Actions>((set) => ({
   isMenuOpen: false,
   isMenuClicked: false,
   toggleMenu: () => {
