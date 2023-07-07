@@ -53,13 +53,13 @@ function Input({ id, name, type, label, value, placeholder, ariaDescribedby, err
             tabIndex={0}
             onClick={handleShowPassword}
           >
-            {showPassword ? <ShowPasswordIcon /> : <HidePasswordIcon />}
+            {showPassword ? <HidePasswordIcon /> : <ShowPasswordIcon />}
           </div>
         ) : null}
       </div>
 
       {showError ? (
-        <div aria-label='Error indicator' className='absolute mt-2 flex items-center text-sm text-red-500'>
+        <div aria-label='Error indicator' className='absolute mt-2 flex select-none items-center text-sm text-red-500'>
           <InvalidIcon />
           <span className='ml-1'>{errors}</span>
         </div>
