@@ -1,12 +1,13 @@
 import { emailValidation, passwordValidation, usernameValidation } from '../utils';
-import { type RegisterCredentials, register } from '../api/auth';
 import { Input } from '../components';
 import { Link, useNavigate } from 'react-router-dom';
 import { useForm } from '../hooks';
 import { useAuthStore } from '../store';
+import { type RegisterCredentials } from '../models/auth.models';
 
 function Register() {
-  const setToken = useAuthStore((state) => state.setToken);
+  const setAuth = useAuthStore((state) => state.setAuth);
+  const register = useAuthStore((state) => state.register);
   const navigate = useNavigate();
 
   const {
@@ -27,7 +28,7 @@ function Register() {
 
       if (resRegister) {
         const accessToken = resRegister.data.accessToken;
-        setToken(accessToken);
+        setAuth(accessToken);
         setData({} as RegisterCredentials);
         navigate('/dashboard');
       }

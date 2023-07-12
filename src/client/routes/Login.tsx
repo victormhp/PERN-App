@@ -1,14 +1,15 @@
-import { emailValidation, passwordValidation } from '../utils';
+import { passwordValidation, usernameValidation } from '../utils';
 import { Input, InvalidIcon } from '../components';
 import { Link, useNavigate } from 'react-router-dom';
-import { type LoginCredentials, login } from '../api/auth';
 import { useAuthStore } from '../store';
+import { type LoginCredentials } from '../models/auth.models';
 import { useForm } from '../hooks';
 import { useState } from 'react';
 
 function Login() {
   const [unauthorized, setUnauthorized] = useState(false);
-  const setToken = useAuthStore((state) => state.setToken);
+  const setAuth = useAuthStore((state) => state.setAuth);
+  const login = useAuthStore((state) => state.login);
   const navigate = useNavigate();
 
   const {
@@ -20,7 +21,7 @@ function Login() {
     handleSubmit,
   } = useForm<LoginCredentials>({
     validations: {
-      email: emailValidation,
+      username: usernameValidation,
       password: passwordValidation,
     },
     onSubmit: async () => {
@@ -28,7 +29,7 @@ function Login() {
 
       if (resLogin) {
         const accessToken = resLogin.data.accessToken;
-        setToken(accessToken);
+        setAuth(accessToken);
         setData({} as LoginCredentials);
         navigate('/dashboard');
       } else {
@@ -46,20 +47,20 @@ function Login() {
           className='mt-8 flex select-none items-center rounded bg-red-500 bg-opacity-20 p-2 text-sm text-red-500'
         >
           <InvalidIcon />
-          <span className='ml-1'>The email address or password is incorrect. Please try again.</span>
+          <span className='ml-1'>The username or password is incorrect. Please try again.</span>
         </div>
       ) : null}
-      <div className='w-full max-w-lg rounded-md text-start'>
+      <div className='my-14 w-full max-w-lg space-y-14 rounded-md text-start'>
         <Input
-          id='email'
-          name='email'
-          label='Email'
-          type='email'
-          ariaDescribedby='emailnote'
-          value={user.email ?? ''}
-          errors={errors.email ?? ''}
+          id='username'
+          name='username'
+          label='Username'
+          type='text'
+          ariaDescribedby='uidnote'
+          value={user.username ?? ''}
+          errors={errors.username ?? ''}
           validateOnSubmit={validSubmit}
-          handleChange={handleChange('email')}
+          handleChange={handleChange('username')}
         />
         <Input
           id='password'
