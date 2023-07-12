@@ -1,4 +1,4 @@
-import { type RequestHandler, Router } from 'express';
+import { Router } from 'express';
 import { UserController } from '../controllers/user.controller';
 import { injectable, inject } from 'tsyringe';
 import verifyJWT from '../middleware/jwt.middleware';
@@ -12,12 +12,12 @@ export class UserRoute {
   }
 
   routes(): Router {
-    this.router.use(verifyJWT as RequestHandler);
+    this.router.use(verifyJWT);
 
-    this.router.get('/users', this.controller.getUsers);
-    this.router.get('/users/:id', this.controller.getUserById);
-    this.router.put('/users/:id', this.controller.udpateUser);
-    this.router.delete('/users/:id', this.controller.deleteUser);
+    this.router.get('/', this.controller.getUsers);
+    this.router.get('/:id', this.controller.getUserById);
+    this.router.put('/:id', this.controller.udpateUser);
+    this.router.delete('/:id', this.controller.deleteUser);
 
     return this.router;
   }
