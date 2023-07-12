@@ -1,6 +1,7 @@
 import { registry, injectable, container } from 'tsyringe';
 import { UserRoute } from '../routes/user.routes';
 import { AuthRoute } from '../routes/auth.routes';
+import { NoteRoute } from '../routes/note.routes';
 import { type Router } from 'express';
 
 @registry([
@@ -14,6 +15,12 @@ import { type Router } from 'express';
     token: 'AuthRoute',
     useFactory: (): Router => {
       return container.resolve(AuthRoute).routes();
+    },
+  },
+  {
+    token: 'NoteRoute',
+    useFactory: (): Router => {
+      return container.resolve(NoteRoute).routes();
     },
   },
 ])
