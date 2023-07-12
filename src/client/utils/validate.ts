@@ -32,3 +32,15 @@ export const usernameValidation: Validation = {
     message: 'The username needs to be at least 4 characters long.',
   },
 };
+
+export const noteTitleValidation: Validation = {
+  required: {
+    value: true,
+  },
+};
+
+export const noteDesciptionValidation: Validation = {
+  required: {
+    value: true,
+  },
+};
