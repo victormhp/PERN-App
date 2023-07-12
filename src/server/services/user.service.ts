@@ -11,22 +11,23 @@ export class UserService {
     return getUsers;
   }
 
-  public async getUserById(id: number): Promise<User | null> {
-    const [getUser]: User[] = await db.select().from(users).where(eq(users.id, id));
+  public async getUserById(id: string): Promise<User | undefined> {
+    const userID = Number(id);
+    const [getUser]: User[] = await db.select().from(users).where(eq(users.id, userID));
     return getUser;
   }
 
-  public async getUserByEmail(email: string): Promise<User | null> {
+  public async getUserByEmail(email: string): Promise<User | undefined> {
     const [getUser]: User[] = await db.select().from(users).where(eq(users.email, email));
     return getUser;
   }
 
-  public async getUserByUsername(username: string): Promise<User | null> {
+  public async getUserByUsername(username: string): Promise<User | undefined> {
     const [getUser]: User[] = await db.select().from(users).where(eq(users.username, username));
     return getUser;
   }
 
-  public async createUser(userData: NewUser): Promise<User> {
+  public async createUser(userData: NewUser): Promise<User | undefined> {
     const hashedPassword = await hashPassword(userData.password);
 
     const newUser = {

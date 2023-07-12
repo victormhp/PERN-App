@@ -1,6 +1,6 @@
 import { type Secret, sign, type SignOptions } from 'jsonwebtoken';
 import { type NewUser, type User } from '../db/schemas/user.schema';
-import { type PayloadToken } from '../types/custom';
+import { type PayloadToken } from '../typings/custom';
 import { UserService } from './user.service';
 import { checkPassword } from '../utils/bcrypt.helpers';
 import { injectable, inject } from 'tsyringe';
@@ -12,24 +12,36 @@ export class AuthService extends Config {
     super();
   }
 
-  public async registerUser(userData: NewUser) {
+  public async registerUser(userData: NewUser): Promise<User | undefined> {
     return await this.userService.createUser(userData);
   }
 
-  public async validateUser(username: string, password: string): Promise<User | null> {
-    const userByEmail = await this.userService.getUserByEmail(username);
+  public async isRegistered(email: string): Promise<boolean> {
+    const userByEmail = await this.userService.getUserByEmail(email);
 
-    if (userByEmail) {
-      const isMatch = await checkPassword(password, userByEmail.password);
+    if (userByEmail) return true;
+    return false;
+  }
+
+  public async validateUsername(username: string): Promise<User | undefined> {
+    const userByUsername = await this.userService.getUserByUsername(username);
+    if (userByUsername) return userByUsername;
+  }
+
+  public async validatePassword(username: string, password: string): Promise<boolean> {
+    const userByUsername = await this.userService.getUserByUsername(username);
+
+    if (userByUsername) {
+      const isMatch = await checkPassword(password, userByUsername.password);
       if (isMatch) {
-        return userByEmail;
+        return true;
       }
     }
 
-    return null;
+    return false;
   }
 
-  public async getDecodedUser(username: string): Promise<User | null> {
+  public async getDecodedUser(username: string): Promise<User | undefined> {
     const decodedUser = await this.userService.getUserByUsername(username);
     return decodedUser;
   }
@@ -38,7 +50,7 @@ export class AuthService extends Config {
     const secret: Secret = this.getEnv('ACCESS_TOKEN_SECRET');
 
     const options: SignOptions = {
-      expiresIn: '15m',
+      expiresIn: '2h',
     };
 
     return sign(payload, secret, options);
