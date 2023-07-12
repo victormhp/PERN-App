@@ -40,9 +40,11 @@ class App extends Config {
   private initializeRoutes(): void {
     const authRouter = container.resolve<Router>('AuthRoute');
     const userRouter = container.resolve<Router>('UserRoute');
+    const noteRouter = container.resolve<Router>('NoteRoute');
 
-    this.app.use('/', authRouter);
-    this.app.use('/api', userRouter);
+    this.app.use('/api/auth', authRouter);
+    this.app.use('/api/users', userRouter);
+    this.app.use('/api/notes', noteRouter);
   }
 }
 
