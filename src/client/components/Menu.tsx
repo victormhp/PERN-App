@@ -15,9 +15,7 @@ const menuSections: MenuSection[] = [
 
 function Menu() {
   const [active, setActive] = useState('Notes');
-
   const isMenuOpen = useMenuStore((state) => state.isMenuOpen);
-  const hoverMenu = useMenuStore((state) => state.hoverMenu);
 
   const handleClick = (event: React.MouseEvent<HTMLDivElement, MouseEvent>) => {
     const menuButton: HTMLDivElement = event.currentTarget;
@@ -26,11 +24,11 @@ function Menu() {
 
   return (
     <aside
-      className={`group overflow-hidden pt-2 transition-all ${isMenuOpen ? 'w-64' : 'w-20 hover:w-64'} z-50`}
-      onMouseEnter={hoverMenu}
-      onMouseLeave={hoverMenu}
+      className={`group fixed z-50 h-full overflow-hidden border-r border-transparent bg-zinc-900 transition-all ${
+        isMenuOpen ? 'w-72 shadow-menu sm:w-72 sm:shadow-none' : 'w-16 sm:w-20'
+      }`}
     >
-      <div className='flex flex-col'>
+      <div className='flex flex-col py-2'>
         {menuSections.map((item) => (
           <MenuButton key={item.name} name={item.name} active={active} isMenuOpen={isMenuOpen} Icon={item.Icon} onClick={handleClick} />
         ))}

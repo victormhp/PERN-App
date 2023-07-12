@@ -18,7 +18,7 @@ function NavLoggedIn() {
   useClickOutside(profileMenuRef, handleClickOutside);
 
   return (
-    <nav className='flex items-center justify-between px-4'>
+    <nav className='flex items-center justify-between px-2 sm:px-4'>
       <div className='flex items-center gap-x-2  sm:gap-x-4'>
         <NavButton name='Menu' Icon={MenuIcon} onClick={toggleMenu} />
         <NavLink to='#' className='inline-flex items-center'>
@@ -36,15 +36,19 @@ function NavLoggedIn() {
         <div className='relative' ref={profileMenuRef}>
           <div className='mx-3 h-7 w-7 cursor-pointer rounded-full bg-purple-400' tabIndex={0} onClick={handleProfileMenu} />
           {profileMenu ? (
-            <div className='absolute right-2 top-11 rounded-md border border-zinc-700 bg-zinc-800 px-2 py-3 text-center'>
+            <div className='absolute right-2 top-11 rounded-md border border-zinc-700 bg-zinc-900 px-2 py-3 text-center'>
               <ul className='flex flex-col gap-4'>
                 <li>
-                  <Link to='/' className='cursor-pointer rounded px-3 py-2 transition-all hover:bg-zinc-600'>
+                  <Link to='/' className='cursor-pointer rounded px-3 py-2 transition-all hover:bg-zinc-800 hover:bg-opacity-60'>
                     Profile
                   </Link>
                 </li>
                 <li>
-                  <Link to='/login' className='cursor-pointer rounded px-3 py-2 transition-all hover:bg-zinc-600' onClick={handleLogout}>
+                  <Link
+                    to='/login'
+                    className='cursor-pointer rounded px-3 py-2 transition-all hover:bg-zinc-800 hover:bg-opacity-60'
+                    onClick={handleLogout}
+                  >
                     Logout
                   </Link>
                 </li>

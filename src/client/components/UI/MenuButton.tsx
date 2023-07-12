@@ -11,7 +11,7 @@ function MenuButton({ name, active, isMenuOpen, Icon, onClick }: Props) {
     active === name
       ? 'bg-purple-400 bg-opacity-30'
       : 'hover:bg-zinc-600 hover:bg-opacity-30 focus-visible:bg-zinc-600 focus-visible:bg-opacity-30';
-  const widthStyles = isMenuOpen ? 'w-full rounded-r-full pl-7' : 'ml-4 w-[48px] rounded-full pl-3';
+  const widthStyles = isMenuOpen ? 'w-full rounded-r-full pl-7' : 'ml-2 sm:ml-4 w-[48px] rounded-full pl-3';
   const textStyles = isMenuOpen ? 'inline' : 'hidden';
 
   return (
