@@ -1,4 +1,7 @@
 {
+  "ts-node": {
+    "files": true
+  },
   "compilerOptions": {
     "target": "ESNext",
     "useDefineForClassFields": true,
@@ -8,8 +11,9 @@
     "esModuleInterop": true,
     "allowSyntheticDefaultImports": true,
     "strict": true,
+    "noUncheckedIndexedAccess": true,
     "forceConsistentCasingInFileNames": true,
-    "typeRoots": ["src/server/types"],
+    "typeRoots": ["node_modules/@types", "src/server/typings"],
     "module": "CommonJS",
     "moduleResolution": "Node",
     "resolveJsonModule": true,

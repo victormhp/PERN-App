@@ -2,5 +2,5 @@ import type { Config } from 'drizzle-kit';
 
 export default {
   schema: './src/server/db/schemas/*',
-  out: './drizzle',
+  out: './src/server/db/migrations',
 } satisfies Config;

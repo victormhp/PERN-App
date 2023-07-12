@@ -13,7 +13,7 @@ async function migrator(): Promise<void> {
     const dbMigration: PostgresJsDatabase = drizzle(migrationClient);
 
     await migrate(dbMigration, {
-      migrationsFolder: path.resolve('drizzle'),
+      migrationsFolder: path.resolve(__dirname, 'migrations'),
     });
 
     console.log('Migration done');
