@@ -1,18 +1,18 @@
 /* eslint-disable @typescript-eslint/ban-types */
-import { type ChangeEvent, useState, useEffect, type FormEvent } from 'react';
+import { useState, useEffect, type FormEvent, type ChangeEvent } from 'react';
 
 export interface Validation {
   required?: {
     value: boolean;
-    message: string;
+    message?: string;
   };
   pattern?: {
     value: string;
-    message: string;
+    message?: string;
   };
   custom?: {
     isValid: (value: string) => boolean;
-    message: string;
+    message?: string;
   };
 }
 
