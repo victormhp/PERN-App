@@ -1,4 +1,4 @@
-import { type Request, type Response, type NextFunction } from 'express';
+import { type Request, type Response, type NextFunction, type RequestHandler } from 'express';
 import { type User, type NewUser } from '../db/schemas/user.schema';
 import { UserService } from '../services/user.service';
 import { injectable, inject } from 'tsyringe';
@@ -7,7 +7,7 @@ import { injectable, inject } from 'tsyringe';
 export class UserController {
   constructor(@inject(UserService) private readonly service: UserService) {}
 
-  public getUsers = async (req: Request, res: Response, next: NextFunction): Promise<void> => {
+  public getUsers: RequestHandler = async (req: Request, res: Response, next: NextFunction) => {
     try {
       const data: User[] = await this.service.getUsers();
       res.status(201).json({ data });
@@ -16,40 +16,40 @@ export class UserController {
     }
   };
 
-  public getUserById = async (req: Request, res: Response, next: NextFunction): Promise<void> => {
+  public getUserById: RequestHandler = async (req: Request, res: Response, next: NextFunction) => {
     try {
-      const { id } = req.params;
-      const userID = Number(id);
-      const userData = await this.service.getUserById(userID);
+      const id = req.params?.id;
+      if (!id) return res.status(400).json({ message: 'No user with that ID' });
 
-      if (userData != null) {
+      const userData = await this.service.getUserById(id);
+      if (userData) {
         const { password, ...filteredUserData } = userData;
         res.status(201).json({ data: filteredUserData });
-      } else {
-        res.status(400).json({ message: 'No user with that ID' });
       }
     } catch (err) {
       next(err);
     }
   };
 
-  public udpateUser = async (req: Request, res: Response, next: NextFunction): Promise<void> => {
+  public udpateUser: RequestHandler = async (req: Request, res: Response, next: NextFunction) => {
     try {
-      const { id } = req.params;
+      const id = req.params?.id;
+      if (!id) return res.status(400).json({ message: 'No user with that ID' });
+
       const userData: NewUser = req.body;
       const updatedUserData = await this.service.updateUser(id, userData);
-
       res.status(201).json({ data: updatedUserData });
     } catch (err) {
       next(err);
     }
   };
 
-  public deleteUser = async (req: Request, res: Response, next: NextFunction): Promise<void> => {
+  public deleteUser: RequestHandler = async (req: Request, res: Response, next: NextFunction) => {
     try {
-      const { id } = req.params;
-      const deletedUser = await this.service.deleteUser(id);
+      const id = req.params?.id;
+      if (!id) return res.status(400).json({ message: 'No user with that ID' });
 
+      const deletedUser = await this.service.deleteUser(id);
       res.status(201).json({ data: deletedUser });
     } catch (err) {
       next(err);
