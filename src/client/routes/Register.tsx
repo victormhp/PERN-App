@@ -38,7 +38,7 @@ function Register() {
   return (
     <form className='w-full max-w-lg space-y-10 text-center' onSubmit={handleSubmit} noValidate>
       <h2 className='text-3xl font-bold'>Create Account</h2>
-      <div className='w-full max-w-lg rounded-md text-start'>
+      <div className='w-full max-w-lg space-y-14 rounded-md text-start'>
         <Input
           id='email'
           name='email'
