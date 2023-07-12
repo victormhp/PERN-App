@@ -4,14 +4,14 @@ import { type ChangeEvent, useState } from 'react';
 interface Props {
   id: string;
   name: string;
-  label: string;
   type: string;
   value: string;
+  label?: string;
   placeholder?: string;
   ariaDescribedby?: string;
-  errors: string;
+  errors?: string;
   validateOnSubmit?: boolean;
-  handleChange: (event: ChangeEvent<HTMLInputElement>) => void;
+  handleChange?: (event: ChangeEvent<HTMLInputElement>) => void;
 }
 
 function Input({ id, name, type, label, value, placeholder, ariaDescribedby, errors, validateOnSubmit, handleChange }: Props) {
@@ -23,10 +23,10 @@ function Input({ id, name, type, label, value, placeholder, ariaDescribedby, err
   const handleShowPassword = () => setShowPassword((prevShow: boolean) => !prevShow);
   const handleBlur = () => setValidateOnBlur(true);
 
-  const showError = errors !== '' && (validateOnBlur || !validateOnSubmit);
+  const showError = errors && (validateOnBlur || !validateOnSubmit);
 
   return (
-    <div className='my-8 mb-12'>
+    <div>
       <label htmlFor={name} className='block pb-2 text-sm font-medium text-zinc-50'>
         {label}
       </label>
