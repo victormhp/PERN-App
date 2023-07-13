@@ -26,8 +26,29 @@ export class AuthController extends Config {
 
       const userData = registerUserSchema.parse(req.body);
       const registerUser = await this.service.registerUser(userData);
+      if (!registerUser) {
+        return res.status(401).json({ Error: 'Invalid credentials' });
+      }
 
-      res.status(201).json({ data: registerUser });
+      const payload: PayloadToken = {
+        id: registerUser.id,
+        username: registerUser.username,
+        role: registerUser.role,
+      };
+
+      const accessToken = this.service.generateAccessToken(payload);
+      const newRefreshToken = this.service.generateRefreshToken(payload);
+
+      // Create secure cookie with refresh token
+      res.cookie('jwt', newRefreshToken, {
+        httpOnly: true, // accessible only by web server
+        secure: true, // https
+        sameSite: 'none', // cross-site cookie
+        maxAge: 7 * 24 * 60 * 60 * 1000, // cookie expiry: set to match rT
+      });
+
+      // Send accessToken containing id, username and roles
+      res.json({ accessToken });
     } catch (err) {
       next(err);
     }
@@ -66,7 +87,7 @@ export class AuthController extends Config {
         maxAge: 7 * 24 * 60 * 60 * 1000, // cookie expiry: set to match rT
       });
 
-      // Send accessToken containing username and roles
+      // Send accessToken containing id, username and roles
       res.json({ accessToken });
     } catch (err) {
       next(err);
