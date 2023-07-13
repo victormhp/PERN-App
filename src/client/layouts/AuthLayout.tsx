@@ -7,7 +7,7 @@ function AuthLayout() {
       <header className='border-b border-zinc-500'>
         <NavLoggedOut />
       </header>
-      <main className='flex flex-1 items-center justify-center overflow-hidden'>
+      <main className='flex flex-1 items-center justify-center'>
         <Outlet />
       </main>
     </>
