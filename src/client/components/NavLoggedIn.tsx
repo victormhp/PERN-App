@@ -1,5 +1,5 @@
-import { DarkModeIcon, GridViewIcon, MenuIcon } from './Icons';
-import { useAuthStore, useMenuStore } from '../store';
+import { DarkModeIcon, GridViewIcon, ListViewIcon, MenuIcon } from './Icons';
+import { useAuthStore, useMenuStore, useNotesStore } from '../store';
 import { useClickOutside } from '../hooks';
 import { useRef, useState } from 'react';
 import { NavLink, Link } from 'react-router-dom';
@@ -9,16 +9,20 @@ function NavLoggedIn() {
   const [profileMenu, setProfileMenu] = useState(false);
   const profileMenuRef = useRef<HTMLDivElement>(null);
 
-  const toggleMenu = useMenuStore((state) => state.toggleMenu);
-  const handleLogout = useAuthStore((state) => state.logout);
+  const view = useNotesStore((state) => state.view);
+  const toggleView = useNotesStore((state) => state.toggleView);
+  const ViewIcon = view === 'grid' ? ListViewIcon : GridViewIcon;
 
+  const toggleMenu = useMenuStore((state) => state.toggleMenu);
   const handleProfileMenu = () => setProfileMenu((prev) => !prev);
+
   const handleClickOutside = () => setProfileMenu(false);
+  const handleLogout = useAuthStore((state) => state.logout);
 
   useClickOutside(profileMenuRef, handleClickOutside);
 
   return (
-    <nav className='flex items-center justify-between px-2 sm:px-4'>
+    <nav className='flex items-center justify-between bg-zinc-900 px-2 sm:px-4'>
       <div className='flex items-center gap-x-2  sm:gap-x-4'>
         <NavButton name='Menu' Icon={MenuIcon} onClick={toggleMenu} />
         <NavLink to='#' className='inline-flex items-center'>
@@ -31,7 +35,7 @@ function NavLoggedIn() {
       <div className='flex items-center sm:gap-x-4'>
         <div className='hidden sm:flex sm:items-center sm:gap-x-4 '>
           <NavButton name='Colors' Icon={DarkModeIcon} />
-          <NavButton name='Views' Icon={GridViewIcon} />
+          <NavButton name='Views' Icon={ViewIcon} onClick={toggleView} />
         </div>
         <div className='relative' ref={profileMenuRef}>
           <div className='mx-3 h-7 w-7 cursor-pointer rounded-full bg-purple-400' tabIndex={0} onClick={handleProfileMenu} />
