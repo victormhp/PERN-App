@@ -1,10 +1,11 @@
-import NoteForm from './NoteForm';
+import NoteForm from './NotesForm';
+import NotesList from './NotesList';
 
 function Notes() {
   return (
-    <section className='ml-20 flex w-full flex-col items-center justify-between'>
+    <section className='ml-20 flex h-full w-full flex-col items-center justify-start'>
       <NoteForm />
-      <div>NOTAS</div>
+      <NotesList />
     </section>
   );
 }
