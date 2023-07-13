@@ -5,12 +5,11 @@ function useRefreshToken() {
   const setAuth = useAuthStore((state) => state.setAuth);
 
   const refresh = async (): Promise<string> => {
-    const res = await axios.get('/refresh', {
+    const res = await axios.get('/api/auth/refresh', {
       withCredentials: true,
     });
     const accessToken: string = res.data.accessToken;
     setAuth(accessToken);
-    console.log(accessToken);
     return accessToken;
   };
 
