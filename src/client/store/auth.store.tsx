@@ -1,7 +1,6 @@
 import { create } from 'zustand';
 import jwt_decode from 'jwt-decode';
-import { type AxiosResponse } from 'axios';
-import axios from '../libs/axios';
+import axios, { type AxiosResponse } from 'axios';
 import { type LoginCredentials, type RegisterCredentials } from '../models/auth.models';
 
 interface Profile {
@@ -14,10 +13,11 @@ interface State {
   accessToken: string | null;
   user: Profile | null;
   isAuth: boolean;
+  persist: boolean;
 }
 
 interface Actions {
-  setAuth: (token: string) => void;
+  setAuth: (accessToken: string) => void;
   register: (data: RegisterCredentials) => Promise<AxiosResponse<any, any> | undefined>;
   login: (data: LoginCredentials) => Promise<AxiosResponse<any, any> | undefined>;
   logout: () => void;
@@ -27,6 +27,7 @@ export const useAuthStore = create<State & Actions>((set) => ({
   accessToken: null,
   user: null,
   isAuth: false,
+  persist: false,
   setAuth: (accessToken) =>
     set(() => ({
       accessToken,
