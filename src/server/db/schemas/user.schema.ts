@@ -1,4 +1,4 @@
-import { pgTable, serial, timestamp, varchar, jsonb } from 'drizzle-orm/pg-core';
+import { pgTable, serial, timestamp, varchar } from 'drizzle-orm/pg-core';
 import { relations, type InferModel } from 'drizzle-orm';
 import { createInsertSchema } from 'drizzle-zod';
 import { z } from 'zod';
@@ -13,7 +13,6 @@ export const users = pgTable('users', {
     .default('user')
     .notNull(),
   createdAt: timestamp('created_at').defaultNow().notNull(),
-  refresh: jsonb('refresh').default('[]'),
 });
 
 export const usersRelations = relations(users, ({ many }) => ({
