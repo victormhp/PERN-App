@@ -10,7 +10,7 @@ module.exports = {
         'valid-150': 'inset 0 0 0 1.5px #a1a1aa',
         input: 'inset 0 0 0 1px #3f3f46',
         menu: '0 5px 5px #0a0a0a',
-        note: '0 3px 6px #0a0a0a',
+        note: '0 4px 8px #0a0a0a',
       },
     },
   },
