@@ -74,7 +74,7 @@ function useForm<T extends Record<keyof T, any> = {}>(options?: { validations?: 
 
   const handleChange =
     <S,>(key: keyof T, sanitizeFn?: (value: string) => S) =>
-    (event: ChangeEvent<HTMLInputElement>) => {
+    (event: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
       const value = sanitizeFn ? sanitizeFn(event.target.value) : event.target.value;
 
       setData((prevData) => ({
