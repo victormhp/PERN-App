@@ -1,4 +1,4 @@
-import { useMenuStore } from '../store/menuStore';
+import { useMenuStore } from '../store/menu.store';
 import { useState } from 'react';
 import { BinIcon, NotesIcon } from './Icons';
 import MenuButton from './UI/MenuButton';
@@ -24,7 +24,7 @@ function Menu() {
 
   return (
     <aside
-      className={`group fixed z-50 h-full overflow-hidden border-r border-transparent bg-zinc-900 transition-all ${
+      className={`group fixed z-10 h-full overflow-hidden border-r border-transparent bg-zinc-900 transition-all ${
         isMenuOpen ? 'w-72 shadow-menu sm:w-72 sm:shadow-none' : 'w-16 sm:w-20'
       }`}
     >
