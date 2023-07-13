@@ -27,7 +27,7 @@ function Register() {
       const resRegister = await register(user);
 
       if (resRegister) {
-        const accessToken = resRegister.data.accessToken;
+        const accessToken: string = resRegister.data.accessToken;
         setAuth(accessToken);
         setData({} as RegisterCredentials);
         navigate('/dashboard');

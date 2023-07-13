@@ -28,7 +28,7 @@ function Login() {
       const resLogin = await login(user);
 
       if (resLogin) {
-        const accessToken = resLogin.data.accessToken;
+        const accessToken: string = resLogin.data.accessToken;
         setAuth(accessToken);
         setData({} as LoginCredentials);
         navigate('/dashboard');
