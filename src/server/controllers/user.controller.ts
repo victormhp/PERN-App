@@ -1,7 +1,8 @@
 import { type Request, type Response, type NextFunction, type RequestHandler } from 'express';
-import { type User, type NewUser } from '../db/schemas/user.schema';
+import { type User, type RegisterUser } from '../db/schemas/user.schema';
 import { UserService } from '../services/user.service';
 import { injectable, inject } from 'tsyringe';
+import { assertIsDefined } from '../utils/isDefined.helper';
 
 @injectable()
 export class UserController {
@@ -19,7 +20,7 @@ export class UserController {
   public getUserById: RequestHandler = async (req: Request, res: Response, next: NextFunction) => {
     try {
       const id = req.params?.id;
-      if (!id) return res.status(400).json({ message: 'No user with that ID' });
+      assertIsDefined(id);
 
       const userData = await this.service.getUserById(id);
       if (userData) {
@@ -34,9 +35,9 @@ export class UserController {
   public udpateUser: RequestHandler = async (req: Request, res: Response, next: NextFunction) => {
     try {
       const id = req.params?.id;
-      if (!id) return res.status(400).json({ message: 'No user with that ID' });
+      assertIsDefined(id);
 
-      const userData: NewUser = req.body;
+      const userData: RegisterUser = req.body;
       const updatedUserData = await this.service.updateUser(id, userData);
       res.status(201).json({ data: updatedUserData });
     } catch (err) {
@@ -47,7 +48,7 @@ export class UserController {
   public deleteUser: RequestHandler = async (req: Request, res: Response, next: NextFunction) => {
     try {
       const id = req.params?.id;
-      if (!id) return res.status(400).json({ message: 'No user with that ID' });
+      assertIsDefined(id);
 
       const deletedUser = await this.service.deleteUser(id);
       res.status(201).json({ data: deletedUser });

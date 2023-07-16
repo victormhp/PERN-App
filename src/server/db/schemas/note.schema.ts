@@ -20,7 +20,7 @@ export const notesRelations = relations(notes, ({ one }) => ({
   }),
 }));
 
-export const createNoteSchema = createInsertSchema(notes, {
+export const insertNoteSchema = createInsertSchema(notes, {
   userId: z
     .number({
       required_error: 'User ID is required',
@@ -41,5 +41,8 @@ export const createNoteSchema = createInsertSchema(notes, {
     .nonempty('Description is required'),
 });
 
+export const updateNoteSchema = insertNoteSchema.pick({ title: true, description: true });
+
 export type Note = InferModel<typeof notes, 'select'>;
-export type NewNote = InferModel<typeof notes, 'insert'>;
+export type NewNote = z.infer<typeof insertNoteSchema>;
+export type UpdateNote = z.infer<typeof updateNoteSchema>;

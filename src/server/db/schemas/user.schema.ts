@@ -41,5 +41,5 @@ export const registerUserSchema = createInsertSchema(users, {
 export const loginUserSchema = registerUserSchema.pick({ username: true, password: true });
 
 export type User = InferModel<typeof users, 'select'>;
-export type NewUser = z.infer<typeof registerUserSchema>;
+export type RegisterUser = z.infer<typeof registerUserSchema>;
 export type LoginUser = z.infer<typeof loginUserSchema>;
