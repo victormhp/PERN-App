@@ -1,4 +1,4 @@
-import { users, type User, type NewUser } from '../db/schemas/user.schema';
+import { users, type User, type RegisterUser } from '../db/schemas/user.schema';
 import { injectable } from 'tsyringe';
 import db from '../db/dbConnection';
 import { eq } from 'drizzle-orm';
@@ -27,7 +27,7 @@ export class UserService {
     return getUser;
   }
 
-  public async createUser(userData: NewUser): Promise<User | undefined> {
+  public async createUser(userData: RegisterUser): Promise<User | undefined> {
     const hashedPassword = await hashPassword(userData.password);
 
     const newUser = {
@@ -40,7 +40,7 @@ export class UserService {
     return createUserData;
   }
 
-  public updateUser = async (id: string, userData: NewUser): Promise<User[]> => {
+  public updateUser = async (id: string, userData: RegisterUser): Promise<User[]> => {
     const userID = Number(id);
     const updateUserData: User[] = await db.update(users).set(userData).where(eq(users.id, userID)).returning();
 
