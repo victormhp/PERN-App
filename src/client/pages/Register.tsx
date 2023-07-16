@@ -3,7 +3,7 @@ import { Input } from '../components';
 import { Link, useNavigate } from 'react-router-dom';
 import { useForm } from '../hooks';
 import { useAuthStore } from '../store';
-import { type RegisterCredentials } from '../models/auth.models';
+import { type RegisterCredentials } from '../models';
 
 function Register() {
   const setAuth = useAuthStore((state) => state.setAuth);

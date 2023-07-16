@@ -2,9 +2,9 @@ import { passwordValidation, usernameValidation } from '../utils';
 import { Input, InvalidIcon } from '../components';
 import { Link, useNavigate } from 'react-router-dom';
 import { useAuthStore } from '../store';
-import { type LoginCredentials } from '../models/auth.models';
 import { useForm } from '../hooks';
 import { useState } from 'react';
+import { type LoginCredentials } from '../models';
 
 function Login() {
   const [unauthorized, setUnauthorized] = useState(false);
