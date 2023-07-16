@@ -1,8 +1,8 @@
 import { type ChangeEvent, useRef, useState } from 'react';
 import { useAxiosPrivate, useClickOutside, useForm } from '../hooks';
-import { type FormNote, type NewNote } from '../models';
 import { useAuthStore, useNotesStore } from '../store';
 import { noteDesciptionValidation, noteTitleValidation } from '../utils';
+import { type FormNote, type NewNote } from '../models';
 
 function NoteForm() {
   const axiosPrivate = useAxiosPrivate();
@@ -39,7 +39,10 @@ function NoteForm() {
           description: note.description,
         };
         const res = await createNote(noteData, axiosPrivate);
-        if (res) setData({} as NewNote);
+        if (res) {
+          handleClose();
+          setData({} as NewNote);
+        }
       }
     },
   });
@@ -47,7 +50,7 @@ function NoteForm() {
   return (
     <form
       ref={toggleRef}
-      className='my-8 w-4/5 rounded-lg border border-zinc-500 px-5 py-3 shadow-note lg:w-2/5'
+      className='shadow-note my-8 w-4/5 rounded-lg border border-zinc-500 px-5 py-3 lg:w-2/5'
       onSubmit={handleSubmit}
       noValidate
     >
@@ -87,6 +90,7 @@ function NoteForm() {
               Create
             </button>
             <button
+              type='button'
               className='rounded-md bg-transparent px-6 py-2 transition-all hover:bg-zinc-800 hover:bg-opacity-60 focus:bg-zinc-800 focus:bg-opacity-60 focus:outline-none'
               onClick={handleClose}
             >
