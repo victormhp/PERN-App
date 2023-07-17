@@ -2,7 +2,7 @@ import { type ChangeEvent, useRef, useState } from 'react';
 import { useAxiosPrivate, useClickOutside, useForm } from '../hooks';
 import { useAuthStore, useNotesStore } from '../store';
 import { noteDesciptionValidation, noteTitleValidation } from '../utils';
-import { type FormNote, type NewNote } from '../models';
+import { type NewNote, type UpdateNote } from '../../db/schemas/note.schema';
 
 function NoteForm() {
   const axiosPrivate = useAxiosPrivate();
@@ -26,7 +26,7 @@ function NoteForm() {
     setData,
     handleChange,
     handleSubmit,
-  } = useForm<FormNote>({
+  } = useForm<UpdateNote>({
     validations: {
       title: noteTitleValidation,
       description: noteDesciptionValidation,
@@ -50,7 +50,7 @@ function NoteForm() {
   return (
     <form
       ref={toggleRef}
-      className='shadow-note my-8 w-4/5 rounded-lg border border-zinc-500 px-5 py-3 lg:w-2/5'
+      className='my-8 w-4/5 rounded-lg border border-zinc-500 px-5 py-3 shadow-note lg:w-2/5'
       onSubmit={handleSubmit}
       noValidate
     >

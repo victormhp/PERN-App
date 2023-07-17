@@ -1,7 +1,7 @@
 import { injectable } from 'tsyringe';
-import db from '../db/dbConnection';
+import db from '../../db/dbConnection';
 import { eq, sql } from 'drizzle-orm';
-import { notes, type Note, type NewNote, type UpdateNote } from '../db/schemas/note.schema';
+import { notes, type Note, type NewNote, type UpdateNote } from '../../db/schemas/note.schema';
 
 @injectable()
 export class NoteService {

@@ -1,6 +1,6 @@
-import { users, type User, type RegisterUser } from '../db/schemas/user.schema';
+import { users, type User, type RegisterUser } from '../../db/schemas/user.schema';
 import { injectable } from 'tsyringe';
-import db from '../db/dbConnection';
+import db from '../../db/dbConnection';
 import { eq } from 'drizzle-orm';
 import { hashPassword } from '../utils/bcrypt.helpers';
 

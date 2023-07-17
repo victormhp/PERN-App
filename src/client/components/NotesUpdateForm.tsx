@@ -2,7 +2,7 @@ import { useRef, useEffect } from 'react';
 import { useNotesStore } from '../store';
 import { useAxiosPrivate, useForm } from '../hooks';
 import { noteDesciptionValidation, noteTitleValidation } from '../utils';
-import { type FormNote, type Note } from '../models';
+import { type Note, type UpdateNote } from '../../db/schemas/note.schema';
 
 interface Props {
   note: Note;
@@ -33,7 +33,7 @@ function NotesUpdateForm({ note, noteRef, onClose }: Props) {
     data: noteData,
     handleChange,
     handleSubmit,
-  } = useForm<FormNote>({
+  } = useForm<UpdateNote>({
     validations: {
       title: noteTitleValidation,
       description: noteDesciptionValidation,

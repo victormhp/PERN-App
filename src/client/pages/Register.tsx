@@ -3,7 +3,7 @@ import { Input } from '../components';
 import { Link, useNavigate } from 'react-router-dom';
 import { useForm } from '../hooks';
 import { useAuthStore } from '../store';
-import { type RegisterCredentials } from '../models';
+import { type RegisterUser } from '../../db/schemas/user.schema';
 
 function Register() {
   const setAuth = useAuthStore((state) => state.setAuth);
@@ -17,7 +17,7 @@ function Register() {
     validSubmit,
     handleChange,
     handleSubmit,
-  } = useForm<RegisterCredentials>({
+  } = useForm<RegisterUser>({
     validations: {
       email: emailValidation,
       password: passwordValidation,
@@ -29,7 +29,7 @@ function Register() {
       if (resRegister) {
         const accessToken: string = resRegister.data.accessToken;
         setAuth(accessToken);
-        setData({} as RegisterCredentials);
+        setData({} as RegisterUser);
         navigate('/dashboard');
       }
     },

@@ -1,5 +1,5 @@
 import { type Secret, sign, type SignOptions } from 'jsonwebtoken';
-import { type RegisterUser, type User } from '../db/schemas/user.schema';
+import { type RegisterUser, type User } from '../../db/schemas/user.schema';
 import { type PayloadToken } from '../typings/custom';
 import { UserService } from './user.service';
 import { checkPassword } from '../utils/bcrypt.helpers';

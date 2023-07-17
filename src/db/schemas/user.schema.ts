@@ -19,7 +19,7 @@ export const usersRelations = relations(users, ({ many }) => ({
   notes: many(notes),
 }));
 
-export const registerUserSchema = createInsertSchema(users, {
+export const userSchema = createInsertSchema(users, {
   email: z
     .string({
       required_error: 'Email is required',
@@ -38,7 +38,8 @@ export const registerUserSchema = createInsertSchema(users, {
   password: z.string().nonempty('Password is required').min(6, 'Password too short'),
 });
 
-export const loginUserSchema = registerUserSchema.pick({ username: true, password: true });
+export const registerUserSchema = userSchema.pick({ username: true, email: true, password: true });
+export const loginUserSchema = userSchema.pick({ username: true, password: true });
 
 export type User = InferModel<typeof users, 'select'>;
 export type RegisterUser = z.infer<typeof registerUserSchema>;

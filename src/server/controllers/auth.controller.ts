@@ -1,5 +1,5 @@
 import { type Request, type Response, type NextFunction, type RequestHandler } from 'express';
-import { loginUserSchema, registerUserSchema } from '../db/schemas/user.schema';
+import { loginUserSchema, registerUserSchema } from '../../db/schemas/user.schema';
 import { type PayloadToken } from '../typings/custom';
 import { type Secret, verify } from 'jsonwebtoken';
 import { AuthService } from '../services/auth.service';

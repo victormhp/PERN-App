@@ -4,7 +4,7 @@ import { Link, useNavigate } from 'react-router-dom';
 import { useAuthStore } from '../store';
 import { useForm } from '../hooks';
 import { useState } from 'react';
-import { type LoginCredentials } from '../models';
+import { type LoginUser } from '../../db/schemas/user.schema';
 
 function Login() {
   const [unauthorized, setUnauthorized] = useState(false);
@@ -19,7 +19,7 @@ function Login() {
     validSubmit,
     handleChange,
     handleSubmit,
-  } = useForm<LoginCredentials>({
+  } = useForm<LoginUser>({
     validations: {
       username: usernameValidation,
       password: passwordValidation,
@@ -30,7 +30,7 @@ function Login() {
       if (resLogin) {
         const accessToken: string = resLogin.data.accessToken;
         setAuth(accessToken);
-        setData({} as LoginCredentials);
+        setData({} as LoginUser);
         navigate('/dashboard');
       } else {
         setUnauthorized(true);
