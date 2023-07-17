@@ -66,19 +66,41 @@ export const Icons = {
     </svg>
   ),
   grid: (props: SVGProps<SVGSVGElement>) => (
-    <svg xmlns='http://www.w3.org/2000/svg' width={24} height={24} fill='currentColor' viewBox='0 0 36 36' {...props}>
-      <path d='M14 4H6a2 2 0 0 0-2 2v8a2 2 0 0 0 2 2h8a2 2 0 0 0 2-2V6a2 2 0 0 0-2-2ZM6 14V6h8v8Z' />
-      <path d='M30 4h-8a2 2 0 0 0-2 2v8a2 2 0 0 0 2 2h8a2 2 0 0 0 2-2V6a2 2 0 0 0-2-2Zm-8 10V6h8v8Z' />
-      <path d='M14 20H6a2 2 0 0 0-2 2v8a2 2 0 0 0 2 2h8a2 2 0 0 0 2-2v-8a2 2 0 0 0-2-2ZM6 30v-8h8v8Z' />
-      <path d='M30 20h-8a2 2 0 0 0-2 2v8a2 2 0 0 0 2 2h8a2 2 0 0 0 2-2v-8a2 2 0 0 0-2-2Zm-8 10v-8h8v8Z' />
-      <path fill='none' d='M0 0h36v36H0z' />
+    <svg
+      xmlns='http://www.w3.org/2000/svg'
+      width='24'
+      height='24'
+      viewBox='0 0 24 24'
+      fill='none'
+      stroke='currentColor'
+      strokeWidth='2'
+      strokeLinecap='round'
+      strokeLinejoin='round'
+      className='lucide lucide-layout-grid'
+      {...props}
+    >
+      <rect width='7' height='7' x='3' y='3' rx='1' />
+      <rect width='7' height='7' x='14' y='3' rx='1' />
+      <rect width='7' height='7' x='14' y='14' rx='1' />
+      <rect width='7' height='7' x='3' y='14' rx='1' />
     </svg>
   ),
   list: (props: SVGProps<SVGSVGElement>) => (
-    <svg xmlns='http://www.w3.org/2000/svg' width={24} height={24} fill='currentColor' viewBox='0 0 36 36' {...props}>
-      <path d='M14 4H6a2 2 0 0 0-2 2v8a2 2 0 0 0 2 2h24a2 2 0 0 0 2-2v-8a2 2 0 0 0-2-2ZM6 14v-8h24v8Z' />
-      <path d='M14 20H6a2 2 0 0 0-2 2v8a2 2 0 0 0 2 2h24a2 2 0 0 0 2-2v-8a2 2 0 0 0-2-2ZM6 30v-8h24v8Z' />
-      <path fill='none' d='M0 0h36v36H0z' />
+    <svg
+      xmlns='http://www.w3.org/2000/svg'
+      width='24'
+      height='24'
+      viewBox='0 0 24 24'
+      fill='none'
+      stroke='currentColor'
+      strokeWidth='2'
+      strokeLinecap='round'
+      strokeLinejoin='round'
+      className='lucide lucide-layout-grid'
+      {...props}
+    >
+      <rect width='18' height='7' x='3' y='3' rx='1' />
+      <rect width='18' height='7' x='3' y='14' rx='1' />
     </svg>
   ),
   alert: (props: SVGProps<SVGSVGElement>) => (
