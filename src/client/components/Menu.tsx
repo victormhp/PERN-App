@@ -1,7 +1,7 @@
 import { useMenuStore } from '../store/menu.store';
+import { Icons } from './Icons';
 import { useState } from 'react';
-import { BinIcon, NotesIcon } from './Icons';
-import MenuButton from './UI/MenuButton';
+import MenuButton from './ui/MenuButton';
 
 interface MenuSection {
   name: string;
@@ -9,8 +9,8 @@ interface MenuSection {
 }
 
 const menuSections: MenuSection[] = [
-  { name: 'Notes', Icon: NotesIcon },
-  { name: 'Bin', Icon: BinIcon },
+  { name: 'Notes', Icon: Icons.bulb },
+  { name: 'Trash', Icon: Icons.trash },
 ];
 
 function Menu() {

@@ -1,5 +1,5 @@
 import { passwordValidation, usernameValidation } from '../utils';
-import { Input, InvalidIcon } from '../components';
+import { Input, Icons } from '../components';
 import { Link, useNavigate } from 'react-router-dom';
 import { useAuthStore } from '../store';
 import { useForm } from '../hooks';
@@ -46,7 +46,7 @@ function Login() {
           aria-label='Error indicator'
           className='mt-8 flex select-none items-center rounded bg-red-500 bg-opacity-20 p-2 text-sm text-red-500'
         >
-          <InvalidIcon />
+          <Icons.alert />
           <span className='ml-1'>The username or password is incorrect. Please try again.</span>
         </div>
       ) : null}

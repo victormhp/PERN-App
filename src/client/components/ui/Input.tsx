@@ -1,4 +1,4 @@
-import { HidePasswordIcon, InvalidIcon, ShowPasswordIcon } from '../Icons';
+import { Icons } from '../Icons';
 import { type ChangeEvent, useState } from 'react';
 
 interface Props {
@@ -53,14 +53,14 @@ function Input({ id, name, type, label, value, placeholder, ariaDescribedby, err
             tabIndex={0}
             onClick={handleShowPassword}
           >
-            {showPassword ? <HidePasswordIcon /> : <ShowPasswordIcon />}
+            {showPassword ? <Icons.hide className='stroke-zinc-700' /> : <Icons.show className='stroke-zinc-700' />}
           </div>
         ) : null}
       </div>
 
       {showError ? (
         <div aria-label='Error indicator' className='absolute mt-2 flex select-none items-center text-sm text-red-500'>
-          <InvalidIcon />
+          <Icons.alert className='h-4 w-4' />
           <span className='ml-1'>{errors}</span>
         </div>
       ) : null}

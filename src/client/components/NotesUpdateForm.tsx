@@ -1,6 +1,5 @@
 import { useRef, useEffect } from 'react';
 import { useNotesStore } from '../store';
-import IconButton from './ui/IconButton';
 import { useAxiosPrivate, useForm } from '../hooks';
 import { noteDesciptionValidation, noteTitleValidation } from '../utils';
 import { type FormNote, type Note } from '../models';
@@ -60,7 +59,7 @@ function NotesUpdateForm({ note, noteRef, onClose }: Props) {
     <>
       <div className='fixed inset-0 z-40 h-screen w-screen bg-zinc-900 opacity-50' aria-hidden='true'></div>
       <form
-        className='shadow-note pointer-events-auto fixed left-1/2 top-1/3 z-50 w-1/3 -translate-x-1/2 -translate-y-1/2 select-text whitespace-pre-wrap rounded-lg border border-zinc-600 bg-zinc-900 px-4 py-2 opacity-100 transition-transform'
+        className='pointer-events-auto fixed left-1/2 top-1/3 z-50 w-1/3 -translate-x-1/2 -translate-y-1/2 select-text whitespace-pre-wrap rounded-lg border border-zinc-600 bg-zinc-900 px-4 py-2 opacity-100 shadow-note transition-transform'
         ref={noteRef}
         onSubmit={handleSubmit}
       >
@@ -91,7 +90,6 @@ function NotesUpdateForm({ note, noteRef, onClose }: Props) {
           />
         </div>
         <div className='mt-4 flex items-center justify-between'>
-          <IconButton name='delete' onClick={async () => await handleDeleteNote(note.id)} />
           <div>
             <button
               className='rounded-md bg-transparent px-6 py-2 text-sm font-medium transition-all hover:bg-zinc-800 hover:bg-opacity-60 focus:bg-zinc-800 focus:bg-opacity-60 focus:outline-none'
