@@ -80,7 +80,7 @@ function Register() {
         <div className='mb-5'>
           <button
             type='submit'
-            className='disabled: relative w-4/6 rounded-full bg-purple-500 px-6 py-3 text-sm font-medium transition-all hover:scale-105 focus-visible:scale-105 sm:w-1/2 sm:text-base'
+            className='disabled: relative w-4/6 rounded-full bg-purple-500 px-6 py-3 text-sm font-medium transition-all hover:scale-95 focus-visible:scale-105 sm:w-1/2 sm:text-base'
           >
             CREATE ACCOUNT
           </button>

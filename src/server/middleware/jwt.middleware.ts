@@ -3,7 +3,7 @@ import { type Secret, verify } from 'jsonwebtoken';
 import { type PayloadToken } from '../typings/custom';
 import 'dotenv/config';
 
-const verifyJWT: RequestHandler = (req: Request, res: Response, next: NextFunction) => {
+export const verifyJWT: RequestHandler = (req: Request, res: Response, next: NextFunction) => {
   const authHeader = req.headers.authorization;
   const validAuthHeader = authHeader?.startsWith('Bearer ');
 
@@ -21,5 +21,3 @@ const verifyJWT: RequestHandler = (req: Request, res: Response, next: NextFuncti
     next();
   });
 };
-
-export default verifyJWT;

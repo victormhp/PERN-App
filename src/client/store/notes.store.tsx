@@ -1,6 +1,6 @@
-import { create } from 'zustand';
-import { type FormNote, type NewNote, type Note } from '../models';
 import { type AxiosResponse, type AxiosInstance } from 'axios';
+import { create } from 'zustand';
+import { type NewNote, type Note, type UpdateNote } from '../../db/schemas/note.schema';
 
 interface State {
   view: 'grid' | 'list';
@@ -13,7 +13,7 @@ interface Actions {
   setCurrentNote: (note: Note | null) => void;
   getNotes: (axios: AxiosInstance) => Promise<AxiosResponse<any, any> | undefined>;
   createNote: (noteData: NewNote, axios: AxiosInstance) => Promise<AxiosResponse<any, any> | undefined>;
-  updateNote: (noteId: number, noteData: FormNote, axios: AxiosInstance) => Promise<AxiosResponse<any, any> | undefined>;
+  updateNote: (noteId: number, noteData: UpdateNote, axios: AxiosInstance) => Promise<AxiosResponse<any, any> | undefined>;
   deleteNote: (noteId: number, axios: AxiosInstance) => Promise<AxiosResponse<any, any> | undefined>;
 }
 
@@ -55,7 +55,7 @@ export const useNotesStore = create<State & Actions>((set) => ({
       console.error(error);
     }
   },
-  updateNote: async (noteId: number, noteData: FormNote, axios: AxiosInstance) => {
+  updateNote: async (noteId: number, noteData: UpdateNote, axios: AxiosInstance) => {
     try {
       const res = await axios.put(`/api/notes/${noteId}`, noteData);
       const updatedNote = res.data.note;

@@ -1,7 +1,7 @@
 import { create } from 'zustand';
 import jwt_decode from 'jwt-decode';
 import axios, { type AxiosResponse } from 'axios';
-import { type LoginCredentials, type RegisterCredentials } from '../models/auth.models';
+import { type LoginUser, type RegisterUser } from '../../db/schemas/user.schema';
 
 interface Profile {
   id: number;
@@ -18,8 +18,8 @@ interface State {
 
 interface Actions {
   setAuth: (accessToken: string) => void;
-  register: (data: RegisterCredentials) => Promise<AxiosResponse<any, any> | undefined>;
-  login: (data: LoginCredentials) => Promise<AxiosResponse<any, any> | undefined>;
+  register: (data: RegisterUser) => Promise<AxiosResponse<any, any> | undefined>;
+  login: (data: LoginUser) => Promise<AxiosResponse<any, any> | undefined>;
   logout: () => void;
 }
 
@@ -34,7 +34,7 @@ export const useAuthStore = create<State & Actions>((set) => ({
       user: jwt_decode<Profile>(accessToken),
       isAuth: true,
     })),
-  register: async (data: RegisterCredentials) => {
+  register: async (data: RegisterUser) => {
     try {
       const res = await axios.post('/api/auth/register', data, {
         headers: { 'Content-Type': 'application/json' },
@@ -46,7 +46,7 @@ export const useAuthStore = create<State & Actions>((set) => ({
       console.error(error);
     }
   },
-  login: async (data: LoginCredentials) => {
+  login: async (data: LoginUser) => {
     try {
       const res = await axios.post('/api/auth/login', data, {
         headers: { 'Content-Type': 'application/json' },
