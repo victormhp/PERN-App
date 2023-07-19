@@ -87,7 +87,7 @@ function useForm<T extends Record<keyof T, any> = {}>(options?: {
       }));
     };
 
-  const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
+  const handleSubmit = async (event: FormEvent<HTMLFormElement | HTMLButtonElement>) => {
     event.preventDefault();
 
     if (!isFormValid) {
