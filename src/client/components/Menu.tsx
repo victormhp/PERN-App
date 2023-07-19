@@ -1,7 +1,7 @@
-import { useMenuStore } from '../store/menu.store';
+import { useMenuStore } from '@/store';
 import { Icons } from './Icons';
 import { useState } from 'react';
-import MenuButton from './ui/MenuButton';
+import { MenuButton } from '@/components/ui';
 
 interface MenuSection {
   name: string;
@@ -24,7 +24,7 @@ function Menu() {
 
   return (
     <aside
-      className={`group fixed z-10 h-full overflow-hidden border-r border-transparent bg-zinc-900 transition-all ${
+      className={`group fixed z-10 h-full overflow-hidden border-r border-transparent bg-background transition-all ${
         isMenuOpen ? 'w-72 shadow-menu sm:w-72 sm:shadow-none' : 'w-16 sm:w-20'
       }`}
     >

@@ -1,71 +1,39 @@
+import { useState, forwardRef, type InputHTMLAttributes } from 'react';
 import { Icons } from '../Icons';
-import { type ChangeEvent, useState } from 'react';
+import { cn } from '@/utils';
 
-interface Props {
-  id: string;
-  name: string;
-  type: string;
-  value: string;
-  label?: string;
-  placeholder?: string;
-  ariaDescribedby?: string;
-  errors?: string;
-  validateOnSubmit?: boolean;
-  handleChange?: (event: ChangeEvent<HTMLInputElement>) => void;
-}
+interface InputProps extends InputHTMLAttributes<HTMLInputElement> {}
 
-function Input({ id, name, type, label, value, placeholder, ariaDescribedby, errors, validateOnSubmit, handleChange }: Props) {
+const Input = forwardRef<HTMLInputElement, InputProps>(({ className, type, ...props }, ref) => {
   const [showPassword, setShowPassword] = useState(false);
-  const [validateOnBlur, setValidateOnBlur] = useState(false);
-
   const inputType = type === 'password' ? (showPassword ? 'text' : 'password') : type;
-
   const handleShowPassword = () => setShowPassword((prevShow: boolean) => !prevShow);
-  const handleBlur = () => setValidateOnBlur(true);
-
-  const showError = errors && (validateOnBlur || !validateOnSubmit);
 
   return (
-    <div>
-      <label htmlFor={name} className='block pb-2 text-sm font-medium text-zinc-50'>
-        {label}
-      </label>
-      <div className='relative'>
-        <input
-          id={id}
-          name={name}
-          placeholder={placeholder}
-          value={value}
-          type={inputType}
-          autoComplete='off'
-          aria-invalid={errors ? 'false' : 'true'}
-          aria-describedby={ariaDescribedby}
-          className={`w-full rounded bg-transparent p-2 transition-shadow placeholder:text-zinc-700 focus:outline-none ${
-            showError ? 'shadow-error-100 focus:shadow-error-150' : 'shadow-input hover:shadow-valid-100 focus:shadow-valid-150'
-          }`}
-          onChange={handleChange}
-          onBlur={handleBlur}
-        />
+    <div className='relative'>
+      <input
+        type={inputType}
+        className={cn(
+          'flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background file:border-0 file:bg-transparent file:text-sm file:font-medium placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50',
+          className
+        )}
+        ref={ref}
+        {...props}
+      />
 
-        {type === 'password' ? (
-          <div
-            className='absolute bottom-2 right-0 mr-3 flex cursor-pointer items-center text-sm'
-            tabIndex={0}
-            onClick={handleShowPassword}
-          >
-            {showPassword ? <Icons.hide className='stroke-zinc-700' /> : <Icons.show className='stroke-zinc-700' />}
-          </div>
-        ) : null}
-      </div>
-
-      {showError ? (
-        <div aria-label='Error indicator' className='absolute mt-2 flex select-none items-center text-sm text-red-500'>
-          <Icons.alert className='h-4 w-4' />
-          <span className='ml-1'>{errors}</span>
+      {type === 'password' ? (
+        <div
+          className='absolute bottom-2 right-0 mr-3 flex cursor-pointer items-center rounded-md focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2'
+          tabIndex={0}
+          onClick={handleShowPassword}
+        >
+          {showPassword ? <Icons.hide className='stroke-ring' /> : <Icons.show className='stroke-ring' />}
         </div>
       ) : null}
     </div>
   );
-}
+});
+
+Input.displayName = 'Input';
 
 export default Input;

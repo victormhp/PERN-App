@@ -1,5 +1,5 @@
 import axios from '../libs/axios';
-import { useAuthStore } from '../store';
+import { useAuthStore } from '@/store';
 
 function useRefreshToken() {
   const setAuth = useAuthStore((state) => state.setAuth);

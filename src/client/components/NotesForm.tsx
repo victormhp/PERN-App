@@ -1,8 +1,9 @@
-import { type ChangeEvent, useRef, useState } from 'react';
-import { useAxiosPrivate, useClickOutside, useForm } from '../hooks';
-import { useAuthStore, useNotesStore } from '../store';
-import { noteDesciptionValidation, noteTitleValidation } from '../utils';
-import { type NewNote, type UpdateNote } from '../../db/schemas/note.schema';
+import { useRef, useState } from 'react';
+import { useAxiosPrivate, useClickOutside, useForm } from '@/hooks';
+import { useAuthStore, useNotesStore } from '@/store';
+import { noteDesciptionValidation, noteTitleValidation } from '@/utils';
+import { type NewNote, type UpdateNote } from '../../db/schemas';
+import { Button, Input, Textarea } from './ui';
 
 function NoteForm() {
   const axiosPrivate = useAxiosPrivate();
@@ -15,11 +16,6 @@ function NoteForm() {
   const handleOpen = () => setIsFormOpen(true);
   const handleClose = () => setIsFormOpen(false);
   useClickOutside(toggleRef, handleClose);
-
-  const handleTextareaResize = (event: ChangeEvent<HTMLTextAreaElement>) => {
-    event.target.style.height = 'auto';
-    event.target.style.height = `${event.target.scrollHeight}px`;
-  };
 
   const {
     data: note,
@@ -48,28 +44,22 @@ function NoteForm() {
   });
 
   return (
-    <form
-      ref={toggleRef}
-      className='my-8 w-4/5 rounded-lg border border-zinc-500 px-5 py-3 shadow-note lg:w-2/5'
-      onSubmit={handleSubmit}
-      noValidate
-    >
+    <form noValidate ref={toggleRef} onSubmit={handleSubmit} className='my-8 w-4/5 rounded-lg border border-border px-5 py-3 lg:w-2/5'>
       {isFormOpen ? (
         <>
-          <div className='mb-4 space-y-4'>
-            <input
+          <div className='mb-4'>
+            <Input
               id='title'
               name='title'
-              type='text'
               aria-describedby='titleNote'
               placeholder='Title'
               autoComplete='off'
               autoCorrect='off'
               value={note.title ?? ''}
               onChange={handleChange('title')}
-              className='w-full cursor-text bg-transparent text-start outline-none placeholder:text-lg placeholder:font-medium placeholder:text-zinc-400'
+              className='border-transparent pl-0 text-lg focus-visible:ring-0'
             />
-            <textarea
+            <Textarea
               id='description'
               name='description'
               aria-describedby='descriptionNote'
@@ -78,31 +68,23 @@ function NoteForm() {
               autoCorrect='off'
               value={note.description ?? ''}
               onChange={handleChange('description')}
-              onInput={handleTextareaResize}
-              className='w-full cursor-text resize-none overflow-hidden bg-transparent text-start outline-none placeholder:text-zinc-400'
+              className='border-transparent pl-0 text-lg focus-visible:ring-0'
             />
           </div>
           <div className='w-full space-x-4 text-end'>
-            <button
-              type='submit'
-              className='rounded-md bg-transparent px-6 py-2 transition-all hover:bg-zinc-800 hover:bg-opacity-60 focus:bg-zinc-800 focus:bg-opacity-60 focus:outline-none'
-            >
+            <Button type='submit' variant='ghost'>
               Create
-            </button>
-            <button
-              type='button'
-              className='rounded-md bg-transparent px-6 py-2 transition-all hover:bg-zinc-800 hover:bg-opacity-60 focus:bg-zinc-800 focus:bg-opacity-60 focus:outline-none'
-              onClick={handleClose}
-            >
+            </Button>
+            <Button variant='ghost' onClick={handleClose}>
               Close
-            </button>
+            </Button>
           </div>
         </>
       ) : (
-        <input
-          className='w-full cursor-text bg-transparent text-start outline-none placeholder:text-lg placeholder:font-medium placeholder:text-zinc-500'
+        <Input
           placeholder='Create a note...'
           onClick={handleOpen}
+          className='h-6 border-transparent bg-transparent pl-0 placeholder:text-lg placeholder:font-medium focus-visible:ring-0'
         />
       )}
     </form>

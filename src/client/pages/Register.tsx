@@ -1,9 +1,9 @@
-import { emailValidation, passwordValidation, usernameValidation } from '../utils';
-import { Input } from '../components';
+import { emailValidation, passwordValidation, usernameValidation } from '@/utils';
+import { Button, Input } from '@/components';
 import { Link, useNavigate } from 'react-router-dom';
-import { useForm } from '../hooks';
-import { useAuthStore } from '../store';
-import { type RegisterUser } from '../../db/schemas/user.schema';
+import { useForm } from '@/hooks';
+import { useAuthStore } from '@/store';
+import { type RegisterUser } from '../../db/schemas';
 
 function Register() {
   const setAuth = useAuthStore((state) => state.setAuth);
@@ -36,16 +36,15 @@ function Register() {
   });
 
   return (
-    <form className='w-full max-w-lg space-y-10 text-center' onSubmit={handleSubmit} noValidate>
+    <form className='w-full max-w-xs space-y-10 text-center sm:max-w-lg' onSubmit={handleSubmit} noValidate>
       <h2 className='text-3xl font-bold'>Create Account</h2>
       <div className='w-full max-w-lg space-y-14 rounded-md text-start'>
         <Input
           id='email'
           name='email'
-          label="What's your email?"
           type='email'
           placeholder='Enter your email'
-          ariaDescribedby='emailnote'
+          aria-describedby='emailnote'
           value={user.email ?? ''}
           errors={errors.email ?? ''}
           validateOnSubmit={validSubmit}
@@ -54,10 +53,9 @@ function Register() {
         <Input
           id='password'
           name='password'
-          label='Create a password'
           type='password'
           placeholder='Create a password'
-          ariaDescribedby='pwdnote'
+          aria-describedby='pwdnote'
           value={user.password ?? ''}
           errors={errors.password ?? ''}
           validateOnSubmit={validSubmit}
@@ -66,10 +64,9 @@ function Register() {
         <Input
           id='username'
           name='username'
-          label='What should we call you?'
           type='text'
           placeholder='Enter a profile name'
-          ariaDescribedby='uidnote'
+          aria-describedby='uidnote'
           value={user.username ?? ''}
           errors={errors.username ?? ''}
           validateOnSubmit={validSubmit}
@@ -78,16 +75,19 @@ function Register() {
       </div>
       <div>
         <div className='mb-5'>
-          <button
+          <Button
             type='submit'
-            className='disabled: relative w-4/6 rounded-full bg-purple-500 px-6 py-3 text-sm font-medium transition-all hover:scale-95 focus-visible:scale-105 sm:w-1/2 sm:text-base'
+            className='w-64 bg-purple-500 font-semibold text-zinc-50 transition-transform hover:scale-95 hover:bg-purple-500 focus-visible:scale-95 focus-visible:bg-purple-500 focus-visible:ring-purple-500'
           >
-            CREATE ACCOUNT
-          </button>
+            REGISTER
+          </Button>
         </div>
         <p className='text-cetner text-xs sm:text-sm'>
           Have an account?
-          <Link to='/login' className='ml-2 font-bold text-purple-400 duration-150 hover:text-zinc-200 focus:text-zinc-200'>
+          <Link
+            to='/login'
+            className='ml-2 rounded-md font-bold text-purple-500 duration-150 hover:text-purple-400 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-purple-500 focus-visible:ring-offset-2'
+          >
             LOG IN
           </Link>
         </p>

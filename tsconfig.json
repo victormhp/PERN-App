@@ -3,8 +3,9 @@
     "files": true
   },
   "compilerOptions": {
+    "baseUrl": ".",
     "paths": {
-      "@/*": ["./*"]
+      "@/*": ["./src/client/*"]
     },
     "target": "ESNext",
     "useDefineForClassFields": true,

@@ -2,6 +2,7 @@ import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 import { PageNotFound, Login, Register, ProtectedRoutes, PersistLogin } from './pages';
 import { DashLayout, AuthLayout } from './layouts';
 import { Notes } from './components';
+import { useTheme } from './hooks';
 
 const router = createBrowserRouter([
   {
@@ -47,6 +48,7 @@ const router = createBrowserRouter([
 ]);
 
 function App() {
+  useTheme();
   return <RouterProvider router={router} />;
 }
 
