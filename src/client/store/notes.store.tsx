@@ -3,13 +3,11 @@ import { create } from 'zustand';
 import { type NewNote, type Note, type UpdateNote } from '../../db/schemas/note.schema';
 
 interface State {
-  view: 'grid' | 'list';
   currentNote: Note | null;
   notes: Note[];
 }
 
 interface Actions {
-  toggleView: () => void;
   setCurrentNote: (note: Note | null) => void;
   getNotes: (axios: AxiosInstance) => Promise<AxiosResponse<any, any> | undefined>;
   createNote: (noteData: NewNote, axios: AxiosInstance) => Promise<AxiosResponse<any, any> | undefined>;
@@ -18,12 +16,8 @@ interface Actions {
 }
 
 export const useNotesStore = create<State & Actions>((set) => ({
-  view: 'grid',
   currentNote: null,
   notes: [],
-  toggleView: () => {
-    set((state) => ({ view: state.view === 'grid' ? 'list' : 'grid' }));
-  },
   setCurrentNote: (note: Note | null) => {
     set(() => ({ currentNote: note }));
   },

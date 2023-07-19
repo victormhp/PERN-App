@@ -13,13 +13,12 @@ interface Actions {
 export const useMenuStore = create<State & Actions>((set) => ({
   isMenuOpen: false,
   isMenuClicked: false,
-  toggleMenu: () => {
+  toggleMenu: () =>
     set((state) => ({
       isMenuOpen: !state.isMenuOpen,
       isMenuClicked: !state.isMenuClicked,
-    }));
-  },
-  hoverMenu: () => {
+    })),
+  hoverMenu: () =>
     set((state) => {
       if (!state.isMenuClicked) {
         return {
@@ -27,6 +26,5 @@ export const useMenuStore = create<State & Actions>((set) => ({
         };
       }
       return state;
-    });
-  },
+    }),
 }));
