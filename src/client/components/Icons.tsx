@@ -49,6 +49,23 @@ export const Icons = {
       <path d='M12 3a6 6 0 0 0 9 9 9 9 0 1 1-9-9Z' />
     </svg>
   ),
+  sun: (props: SVGProps<SVGSVGElement>) => (
+    <svg
+      xmlns='http://www.w3.org/2000/svg'
+      width={24}
+      height={24}
+      fill='none'
+      stroke='currentColor'
+      strokeLinecap='round'
+      strokeLinejoin='round'
+      strokeWidth={2}
+      className='lucide lucide-sun'
+      {...props}
+    >
+      <circle cx={12} cy={12} r={4} />
+      <path d='M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M6.34 17.66l-1.41 1.41M19.07 4.93l-1.41 1.41' />
+    </svg>
+  ),
   menu: (props: SVGProps<SVGSVGElement>) => (
     <svg
       xmlns='http://www.w3.org/2000/svg'
@@ -156,6 +173,23 @@ export const Icons = {
     >
       <path d='M9.88 9.88a3 3 0 1 0 4.24 4.24M10.73 5.08A10.43 10.43 0 0 1 12 5c7 0 10 7 10 7a13.16 13.16 0 0 1-1.67 2.68' />
       <path d='M6.61 6.61A13.526 13.526 0 0 0 2 12s3 7 10 7a9.74 9.74 0 0 0 5.39-1.61M2 2l20 20' />
+    </svg>
+  ),
+  close: (props: SVGProps<SVGSVGElement>) => (
+    <svg
+      xmlns='http://www.w3.org/2000/svg'
+      width={24}
+      height={24}
+      viewBox='0 0 24 24'
+      fill='none'
+      stroke='currentColor'
+      strokeLinecap='round'
+      strokeLinejoin='round'
+      strokeWidth={2}
+      className='lucide lucide-x'
+      {...props}
+    >
+      <path d='M18 6 6 18M6 6l12 12' />
     </svg>
   ),
 };
