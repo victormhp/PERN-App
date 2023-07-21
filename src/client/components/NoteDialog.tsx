@@ -78,6 +78,7 @@ function NoteDialog({ note }: Props) {
             <Input
               id='title'
               value={noteData.title}
+              autoFocus
               spellCheck='false'
               onChange={handleChange('title')}
               className='border-transparent pl-0 text-lg focus-visible:ring-0'
