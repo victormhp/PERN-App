@@ -6,6 +6,7 @@ export const Icons = {
       xmlns='http://www.w3.org/2000/svg'
       width={24}
       height={24}
+      viewBox='0 0 24 24'
       fill='none'
       stroke='currentColor'
       strokeLinecap='round'
@@ -190,6 +191,98 @@ export const Icons = {
       {...props}
     >
       <path d='M18 6 6 18M6 6l12 12' />
+    </svg>
+  ),
+  undo: (props: SVGProps<SVGSVGElement>) => (
+    <svg
+      xmlns='http://www.w3.org/2000/svg'
+      width={24}
+      height={24}
+      viewBox='0 0 24 24'
+      fill='none'
+      stroke='currentColor'
+      strokeLinecap='round'
+      strokeLinejoin='round'
+      strokeWidth={2}
+      className='lucide lucide-undo-2'
+      {...props}
+    >
+      <path d='M9 14 4 9l5-5' />
+      <path d='M4 9h10.5a5.5 5.5 0 0 1 5.5 5.5v0a5.5 5.5 0 0 1-5.5 5.5H11' />
+    </svg>
+  ),
+  redo: (props: SVGProps<SVGSVGElement>) => (
+    <svg
+      xmlns='http://www.w3.org/2000/svg'
+      width={24}
+      height={24}
+      viewBox='0 0 24 24'
+      fill='none'
+      stroke='currentColor'
+      strokeLinecap='round'
+      strokeLinejoin='round'
+      strokeWidth={2}
+      className='lucide lucide-redo-2'
+      {...props}
+    >
+      <path d='m15 14 5-5-5-5' />
+      <path d='M20 9H9.5A5.5 5.5 0 0 0 4 14.5v0A5.5 5.5 0 0 0 9.5 20H13' />
+    </svg>
+  ),
+  palette: (props: SVGProps<SVGSVGElement>) => (
+    <svg
+      xmlns='http://www.w3.org/2000/svg'
+      width={24}
+      height={24}
+      viewBox='0 0 24 24'
+      fill='none'
+      stroke='currentColor'
+      strokeLinecap='round'
+      strokeLinejoin='round'
+      strokeWidth={2}
+      className='lucide lucide-palette'
+      {...props}
+    >
+      <circle cx={13.5} cy={6.5} r={0.5} />
+      <circle cx={17.5} cy={10.5} r={0.5} />
+      <circle cx={8.5} cy={7.5} r={0.5} />
+      <circle cx={6.5} cy={12.5} r={0.5} />
+      <path d='M12 2C6.5 2 2 6.5 2 12s4.5 10 10 10c.926 0 1.648-.746 1.648-1.688 0-.437-.18-.835-.437-1.125-.29-.289-.438-.652-.438-1.125a1.64 1.64 0 0 1 1.668-1.668h1.996c3.051 0 5.555-2.503 5.555-5.554C21.965 6.012 17.461 2 12 2z' />
+    </svg>
+  ),
+  tag: (props: SVGProps<SVGSVGElement>) => (
+    <svg
+      xmlns='http://www.w3.org/2000/svg'
+      width={24}
+      height={24}
+      viewBox='0 0 24 24'
+      fill='none'
+      stroke='currentColor'
+      strokeLinecap='round'
+      strokeLinejoin='round'
+      strokeWidth={2}
+      className='lucide lucide-tag'
+      {...props}
+    >
+      <path d='M12 2H2v10l9.29 9.29c.94.94 2.48.94 3.42 0l6.58-6.58c.94-.94.94-2.48 0-3.42L12 2ZM7 7h.01' />
+    </svg>
+  ),
+  archive: (props: SVGProps<SVGSVGElement>) => (
+    <svg
+      xmlns='http://www.w3.org/2000/svg'
+      width={24}
+      height={24}
+      viewBox='0 0 24 24'
+      fill='none'
+      stroke='currentColor'
+      strokeLinecap='round'
+      strokeLinejoin='round'
+      strokeWidth={2}
+      className='lucide lucide-archive'
+      {...props}
+    >
+      <rect width={20} height={5} x={2} y={4} rx={2} />
+      <path d='M4 9v9a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V9M10 13h4' />
     </svg>
   ),
 };
