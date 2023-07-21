@@ -18,7 +18,7 @@ function NotesList() {
     return () => {
       controller.abort();
     };
-  }, [notes]);
+  }, []);
 
   return (
     <div
