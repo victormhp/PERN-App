@@ -1,6 +1,6 @@
 import { NavLink } from 'react-router-dom';
 
-function NavLoggedOut() {
+function NavAuth() {
   return (
     <nav className='flex items-center justify-between px-4'>
       <div className='flex items-center gap-x-2  sm:gap-x-4'>
@@ -15,4 +15,4 @@ function NavLoggedOut() {
   );
 }
 
-export default NavLoggedOut;
+export default NavAuth;

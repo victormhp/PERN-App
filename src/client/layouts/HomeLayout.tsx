@@ -1,11 +1,11 @@
 import { Outlet } from 'react-router-dom';
-import { NavAuth } from '@/components';
+import { NavHome } from '@/components';
 
-function AuthLayout() {
+function HomeLayout() {
   return (
     <>
       <header className='border-b border-border'>
-        <NavAuth />
+        <NavHome />
       </header>
       <main className='flex flex-1 items-center justify-center'>
         <Outlet />
@@ -14,4 +14,4 @@ function AuthLayout() {
   );
 }
 
-export default AuthLayout;
+export default HomeLayout;

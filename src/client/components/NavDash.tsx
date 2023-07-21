@@ -5,7 +5,7 @@ import { NavLink, Link } from 'react-router-dom';
 import { Icons } from './Icons';
 import { Button } from '@/components/ui';
 
-function NavLoggedIn() {
+function NavDash() {
   // Main menu
   const handleMenu = useMenuStore((state) => state.toggleMenu);
 
@@ -78,4 +78,4 @@ function NavLoggedIn() {
   );
 }
 
-export default NavLoggedIn;
+export default NavDash;
