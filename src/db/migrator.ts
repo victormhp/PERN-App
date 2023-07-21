@@ -1,16 +1,18 @@
-import { drizzle, type PostgresJsDatabase } from 'drizzle-orm/postgres-js';
-import { migrate } from 'drizzle-orm/postgres-js/migrator';
-import postgres from 'postgres';
+import { migrate } from 'drizzle-orm/node-postgres/migrator';
+import { drizzle } from 'drizzle-orm/node-postgres';
+import { Client } from 'pg';
 import path from 'path';
 import 'dotenv/config';
 
 async function migrator(): Promise<void> {
   try {
-    const connectionString: string = process.env.DATABASE_URL ?? '';
+    const postgres = process.env.POSTGRES_URL ?? '';
+    const client = new Client({
+      connectionString: postgres + '?sslmode=require',
+    });
 
-    const migrationClient = postgres(connectionString, { max: 1 });
-
-    const dbMigration: PostgresJsDatabase = drizzle(migrationClient);
+    await client.connect();
+    const dbMigration = drizzle(client);
 
     await migrate(dbMigration, {
       migrationsFolder: path.resolve(__dirname, 'migrations'),

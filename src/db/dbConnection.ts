@@ -1,11 +1,12 @@
-import { drizzle, type PostgresJsDatabase } from 'drizzle-orm/postgres-js';
-import postgres from 'postgres';
+import { drizzle } from 'drizzle-orm/node-postgres';
+import { Pool } from 'pg';
 import 'dotenv/config';
 
-const connectionString = process.env.DATABASE_URL ?? '';
+const postgres = process.env.POSTGRES_URL ?? '';
 
-const queryClient = postgres(connectionString);
-
-const db: PostgresJsDatabase = drizzle(queryClient);
+const pool = new Pool({
+  connectionString: postgres + '?sslmode=require',
+});
+const db = drizzle(pool);
 
 export default db;

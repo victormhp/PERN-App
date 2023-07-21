@@ -11,7 +11,7 @@
     "build": "vite build",
     "db:drop": "drizzle-kit drop",
     "db:generate": "drizzle-kit generate:pg",
-    "db:migrate": "ts-node --files src/server/db/migrator.ts"
+    "db:migrate": "ts-node --files src/db/migrator.ts"
   },
   "dependencies": {
     "@radix-ui/react-dialog": "^1.0.4",
@@ -30,7 +30,7 @@
     "jsonwebtoken": "^9.0.1",
     "jwt-decode": "^3.1.2",
     "morgan": "^1.10.0",
-    "postgres": "^3.3.5",
+    "pg": "^8.11.1",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-router-dom": "^6.14.1",
@@ -50,6 +50,7 @@
     "@types/jsonwebtoken": "^9.0.2",
     "@types/morgan": "^1.9.4",
     "@types/node": "^18.16.19",
+    "@types/pg": "^8.10.2",
     "@types/react": "^18.2.15",
     "@types/react-dom": "^18.2.7",
     "@typescript-eslint/eslint-plugin": "^5.62.0",
