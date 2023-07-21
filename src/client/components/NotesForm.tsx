@@ -55,6 +55,8 @@ function NoteForm() {
               placeholder='Title'
               autoComplete='off'
               autoCorrect='off'
+              spellCheck='false'
+              maxLength={50}
               value={note.title ?? ''}
               onChange={handleChange('title')}
               className='border-transparent pl-0 text-lg focus-visible:ring-0'

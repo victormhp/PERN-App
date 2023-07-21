@@ -13,7 +13,7 @@ import {
 import { useAxiosPrivate, useForm } from '@/hooks';
 import { useNotesStore } from '@/store';
 import { noteDesciptionValidation, noteTitleValidation } from '@/utils';
-import { useEffect, useRef, type MouseEvent } from 'react';
+import { useEffect, useRef, type MouseEvent, useState } from 'react';
 import { type UpdateNote, type Note } from '../../db/schemas';
 import { Icons } from './Icons';
 
@@ -26,19 +26,21 @@ function NoteDialog({ note }: Props) {
 
   // Update notes
   const updateNote = useNotesStore((state) => state.updateNote);
-  const textareaRef = useRef<HTMLTextAreaElement>(null);
+  const [openDialog, setOpenDialog] = useState(false);
+  const handleOpenDialog = () => setOpenDialog((prev) => !prev);
 
+  const textareaRef = useRef<HTMLTextAreaElement>(null);
   const adjustTextareaHeight = () => {
     const textarea = textareaRef.current;
     if (textarea) {
       textarea.style.height = 'auto';
-      textarea.style.height = `${textarea.scrollHeight}px`;
+      textarea.style.height = `${textarea.scrollHeight + 16}px`;
     }
   };
 
   useEffect(() => {
     adjustTextareaHeight();
-  }, []);
+  }, [openDialog]);
 
   const {
     data: noteData,
@@ -65,14 +67,14 @@ function NoteDialog({ note }: Props) {
   };
 
   return (
-    <Dialog key={note.id}>
+    <Dialog key={note.id} onOpenChange={handleOpenDialog}>
       <DialogTrigger asChild>
-        <div className='mb-4 h-fit overflow-hidden whitespace-pre-wrap rounded-lg border border-border bg-background px-6 py-4'>
+        <div className='mb-4 max-h-fit overflow-hidden whitespace-pre-wrap break-words rounded-lg border border-border bg-background px-6 py-4'>
           <h4 className='mb-2 font-semibold'>{note.title}</h4>
           <p className='select-none'>{note.description}</p>
         </div>
       </DialogTrigger>
-      <DialogContent className='p-0 sm:max-w-[550px]'>
+      <DialogContent className='w-[80vw] p-0 sm:max-w-[550px]'>
         <DialogHeader className='p-6'>
           <DialogTitle>
             <Input
@@ -80,6 +82,7 @@ function NoteDialog({ note }: Props) {
               value={noteData.title}
               autoFocus
               spellCheck='false'
+              maxLength={50}
               onChange={handleChange('title')}
               className='border-transparent pl-0 text-lg focus-visible:ring-0'
             />
@@ -91,7 +94,7 @@ function NoteDialog({ note }: Props) {
               value={noteData.description}
               spellCheck='false'
               onChange={handleChange('description')}
-              className='border-transparent pl-0 focus-visible:ring-0'
+              className='max-h-[60vh] overflow-y-auto border-transparent pl-0 focus-visible:ring-0'
             />
           </DialogDescription>
         </DialogHeader>

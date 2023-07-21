@@ -1,6 +1,6 @@
 import { NavLink } from 'react-router-dom';
 
-function NavAuth() {
+function NavHome() {
   return (
     <nav className='flex items-center justify-between px-4'>
       <div className='flex items-center gap-x-2  sm:gap-x-4'>
@@ -29,4 +29,4 @@ function NavAuth() {
   );
 }
 
-export default NavAuth;
+export default NavHome;
