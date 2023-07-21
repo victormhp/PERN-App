@@ -66,9 +66,10 @@ function NoteForm() {
               placeholder='Create a note...'
               autoComplete='off'
               autoCorrect='off'
+              spellCheck='false'
               value={note.description ?? ''}
               onChange={handleChange('description')}
-              className='border-transparent pl-0 text-lg focus-visible:ring-0'
+              className='border-transparent pl-0 focus-visible:ring-0'
             />
           </div>
           <div className='w-full space-x-4 text-end'>

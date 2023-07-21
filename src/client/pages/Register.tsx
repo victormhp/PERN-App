@@ -46,9 +46,7 @@ function Register() {
           placeholder='Enter your email'
           aria-describedby='emailnote'
           value={user.email ?? ''}
-          errors={errors.email ?? ''}
-          validateOnSubmit={validSubmit}
-          handleChange={handleChange('email')}
+          onChange={handleChange('email')}
         />
         <Input
           id='password'
@@ -57,9 +55,7 @@ function Register() {
           placeholder='Create a password'
           aria-describedby='pwdnote'
           value={user.password ?? ''}
-          errors={errors.password ?? ''}
-          validateOnSubmit={validSubmit}
-          handleChange={handleChange('password')}
+          onChange={handleChange('password')}
         />
         <Input
           id='username'
@@ -68,9 +64,7 @@ function Register() {
           placeholder='Enter a profile name'
           aria-describedby='uidnote'
           value={user.username ?? ''}
-          errors={errors.username ?? ''}
-          validateOnSubmit={validSubmit}
-          handleChange={handleChange('username')}
+          onChange={handleChange('username')}
         />
       </div>
       <div>

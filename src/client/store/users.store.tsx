@@ -14,7 +14,7 @@ export const useUsersStore = create<State & Actions>((set) => ({
   users: null,
   getUser: async (axios: AxiosInstance, signal: AbortSignal) => {
     try {
-      const response = await axios.get('/api/users', { signal });
+      const response = await axios.get('/users', { signal });
       console.log(response);
       set({ users: response.data.data });
     } catch (error) {

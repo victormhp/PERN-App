@@ -1,6 +1,7 @@
 import { create } from 'zustand';
 import jwt_decode from 'jwt-decode';
-import axios, { type AxiosResponse } from 'axios';
+import { type AxiosResponse } from 'axios';
+import { axiosAuth } from '@/libs/axios';
 import { type LoginUser, type RegisterUser } from '../../db/schemas/user.schema';
 
 interface Profile {
@@ -36,7 +37,7 @@ export const useAuthStore = create<State & Actions>((set) => ({
     })),
   register: async (data: RegisterUser) => {
     try {
-      const res = await axios.post('/api/auth/register', data, {
+      const res = await axiosAuth.post('/auth/register', data, {
         headers: { 'Content-Type': 'application/json' },
         withCredentials: true,
       });
@@ -48,7 +49,7 @@ export const useAuthStore = create<State & Actions>((set) => ({
   },
   login: async (data: LoginUser) => {
     try {
-      const res = await axios.post('/api/auth/login', data, {
+      const res = await axiosAuth.post('/auth/login', data, {
         headers: { 'Content-Type': 'application/json' },
         withCredentials: true,
       });
@@ -60,7 +61,7 @@ export const useAuthStore = create<State & Actions>((set) => ({
   },
   logout: async () => {
     try {
-      const res = await axios.post('/api/auth/logout');
+      const res = await axiosAuth.post('/auth/logout');
       set(() => ({ accessToken: '', isAuth: false }));
       return res;
     } catch (err) {

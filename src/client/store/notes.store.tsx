@@ -1,6 +1,6 @@
 import { type AxiosResponse, type AxiosInstance } from 'axios';
-import { create } from 'zustand';
 import { type NewNote, type Note, type UpdateNote } from '../../db/schemas/note.schema';
+import { create } from 'zustand';
 
 interface State {
   currentNote: Note | null;
@@ -23,7 +23,7 @@ export const useNotesStore = create<State & Actions>((set) => ({
   },
   getNotes: async (axios: AxiosInstance) => {
     try {
-      const res = await axios.get('/api/notes');
+      const res = await axios.get('/notes');
       const fetchedNotes = res.data.notes;
 
       set((state) => {
@@ -40,7 +40,7 @@ export const useNotesStore = create<State & Actions>((set) => ({
   },
   createNote: async (noteData: NewNote, axios: AxiosInstance) => {
     try {
-      const res = await axios.post('/api/notes', noteData);
+      const res = await axios.post('/notes', noteData);
       const createdNote = res.data.note;
       set((state) => ({ notes: [...state.notes, createdNote] }));
 
@@ -51,7 +51,7 @@ export const useNotesStore = create<State & Actions>((set) => ({
   },
   updateNote: async (noteId: number, noteData: UpdateNote, axios: AxiosInstance) => {
     try {
-      const res = await axios.put(`/api/notes/${noteId}`, noteData);
+      const res = await axios.put(`/notes/${noteId}`, noteData);
       const updatedNote = res.data.note;
       set((state) => ({
         notes: state.notes.map((note) => (note.id === updatedNote.id ? { ...note, ...updatedNote } : note)),
@@ -64,7 +64,7 @@ export const useNotesStore = create<State & Actions>((set) => ({
   },
   deleteNote: async (noteId: number, axios: AxiosInstance) => {
     try {
-      const res = await axios.delete(`/api/notes/${noteId}`);
+      const res = await axios.delete(`/notes/${noteId}`);
       const deletedNote = res.data.note;
       set((state) => ({
         notes: state.notes.filter((note) => note.id !== deletedNote.id),
