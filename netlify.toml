@@ -4,6 +4,6 @@ to = "/index.html"
 status = 200
 
 [[redirects]]
-from = "https://pernotes.netlify.app/api/auth/login"
-to = "/api/auth/login"
-status = 200
+from = "https://.netlify.app/:splat"
+to = "/api/*"
+status = 200!
