@@ -2,3 +2,8 @@
 from = "/*"
 to = "/index.html"
 status = 200
+
+[[redirects]]
+from = "https://pernotes.netlify.app/api/auth/login"
+to = "/api/auth/login"
+status = 200
