@@ -6,4 +6,4 @@ status = 200
 [[redirects]]
 from = "https://.netlify.app/:splat"
 to = "/api/*"
-status = 200!
+status = 200
