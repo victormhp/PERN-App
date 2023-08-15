@@ -4,6 +4,6 @@ to = "/index.html"
 status = 200
 
 [[redirects]]
-from = "https://.netlify.app/:splat"
-to = "/api/*"
+from = "/api/*"
+to = "https://.netlify.app/:splat"
 status = 200
