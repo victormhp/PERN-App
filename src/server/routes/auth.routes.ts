@@ -1,7 +1,7 @@
 import { AuthController } from '../controllers/auth.controller';
 import { injectable, inject } from 'tsyringe';
 import { Router } from 'express';
-import { loginUserSchema, registerUserSchema } from '../../db/schemas/user.schema';
+import { loginUserSchema, registerUserSchema } from '../db/schemas/user.schema';
 import { requestValidator } from '../middleware/validator.middleware';
 
 @injectable()

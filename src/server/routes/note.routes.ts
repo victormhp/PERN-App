@@ -3,7 +3,7 @@ import { injectable, inject } from 'tsyringe';
 import { verifyJWT } from '../middleware/jwt.middleware';
 import { NoteController } from '../controllers/note.controller';
 import { requestValidator } from '../middleware/validator.middleware';
-import { insertNoteSchema, updateNoteSchema } from '../../db/schemas/note.schema';
+import { insertNoteSchema, updateNoteSchema } from '../db/schemas/note.schema';
 
 @injectable()
 export class NoteRoute {

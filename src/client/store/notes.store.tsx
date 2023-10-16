@@ -1,5 +1,5 @@
 import { type AxiosResponse, type AxiosInstance } from 'axios';
-import { type NewNote, type Note, type UpdateNote } from '../../db/schemas/note.schema';
+import { type NewNote, type Note, type UpdateNote } from '../../server/db/schemas/note.schema';
 import { create } from 'zustand';
 
 interface State {

@@ -2,6 +2,7 @@ import { useMenuStore } from '@/store';
 import { Icons } from './Icons';
 import { useState } from 'react';
 import { MenuButton } from '@/components/ui';
+import { cn } from '@/utils';
 
 interface MenuSection {
   name: string;
@@ -24,9 +25,10 @@ function Menu() {
 
   return (
     <aside
-      className={`group fixed z-10 h-full overflow-hidden border-r border-transparent bg-background transition-all ${
-        isMenuOpen ? 'w-72 shadow-menu sm:w-72 sm:shadow-none' : 'w-16 sm:w-20'
-      }`}
+      className={cn(
+        'group fixed z-10 h-full overflow-hidden border-r border-transparent bg-background transition-all',
+        isMenuOpen ? 'shadow-menu w-72 sm:w-72 sm:shadow-none' : 'w-16 sm:w-20'
+      )}
     >
       <div className='flex flex-col py-2'>
         {menuSections.map((item) => (

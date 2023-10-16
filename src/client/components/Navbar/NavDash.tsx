@@ -2,8 +2,8 @@ import { useAuthStore, useMenuStore, useConfigStore } from '@/store';
 import { useClickOutside, useTheme } from '@/hooks';
 import { useRef, useState } from 'react';
 import { NavLink, Link } from 'react-router-dom';
-import { Icons } from './Icons';
 import { Button } from '@/components/ui';
+import { Icons } from '../Icons';
 
 function NavDash() {
   // Main menu

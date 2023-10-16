@@ -1,5 +1,5 @@
 import { type Request, type Response, type NextFunction, type RequestHandler } from 'express';
-import { type User, type RegisterUser } from '../../db/schemas/user.schema';
+import { type User, type RegisterUser } from '../db/schemas/user.schema';
 import { UserService } from '../services/user.service';
 import { injectable, inject } from 'tsyringe';
 import { assertIsDefined } from '../utils/isDefined.helper';

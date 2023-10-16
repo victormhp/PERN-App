@@ -9,13 +9,13 @@ import {
   Input,
   Textarea,
   Button,
-} from '@/components/ui';
-import { useAxiosPrivate, useForm } from '@/hooks';
+  Icons,
+} from '@/components';
+import { useAxiosPrivate } from '@/hooks';
 import { useNotesStore } from '@/store';
-import { noteDesciptionValidation, noteTitleValidation } from '@/utils';
 import { useEffect, useRef, type MouseEvent, useState } from 'react';
-import { type UpdateNote, type Note } from '../../db/schemas';
-import { Icons } from './Icons';
+import type { Note, UpdateNote } from 'src/server/db/schemas';
+import { type SubmitHandler, useForm } from 'react-hook-form';
 
 interface Props {
   note: Note;
@@ -27,9 +27,10 @@ function NoteDialog({ note }: Props) {
   // Update notes
   const updateNote = useNotesStore((state) => state.updateNote);
   const [openDialog, setOpenDialog] = useState(false);
-  const handleOpenDialog = () => setOpenDialog((prev) => !prev);
+  const toggleDialog = () => setOpenDialog((prev) => !prev);
 
-  const textareaRef = useRef<HTMLTextAreaElement>(null);
+  // Adjust text area
+  const textareaRef = useRef<HTMLTextAreaElement | null>(null);
   const adjustTextareaHeight = () => {
     const textarea = textareaRef.current;
     if (textarea) {
@@ -42,32 +43,28 @@ function NoteDialog({ note }: Props) {
     adjustTextareaHeight();
   }, [openDialog]);
 
-  const {
-    data: noteData,
-    handleChange,
-    handleSubmit,
-  } = useForm<UpdateNote>({
-    validations: {
-      title: noteTitleValidation,
-      description: noteDesciptionValidation,
-    },
-    initialValues: {
+  const { register, handleSubmit } = useForm<UpdateNote>({
+    defaultValues: {
       title: note.title,
       description: note.description,
     },
-    onSubmit: async () => {
-      await updateNote(note.id, noteData, axiosPrivate);
-    },
   });
+
+  const { ref, ...rest } = register('description');
+
+  const onSubmit: SubmitHandler<UpdateNote> = async (noteData) => {
+    await updateNote(note.id, noteData, axiosPrivate);
+    toggleDialog();
+  };
 
   // Delete notes
   const deleteNote = useNotesStore((state) => state.deleteNote);
-  const handleDelete = async (event: MouseEvent<HTMLButtonElement>) => {
+  const onDelete = async (event: MouseEvent<HTMLButtonElement>) => {
     await deleteNote(note.id, axiosPrivate);
   };
 
   return (
-    <Dialog key={note.id} onOpenChange={handleOpenDialog}>
+    <Dialog key={note.id} open={openDialog} onOpenChange={toggleDialog}>
       <DialogTrigger asChild>
         <div className='mb-4 max-h-fit overflow-hidden whitespace-pre-wrap break-words rounded-lg border border-border bg-background px-6 py-4'>
           <h4 className='mb-2 font-semibold'>{note.title}</h4>
@@ -79,21 +76,22 @@ function NoteDialog({ note }: Props) {
           <DialogTitle>
             <Input
               id='title'
-              value={noteData.title}
+              {...register('title')}
               autoFocus
               spellCheck='false'
               maxLength={50}
-              onChange={handleChange('title')}
               className='border-transparent pl-0 text-lg focus-visible:ring-0'
             />
           </DialogTitle>
           <DialogDescription>
             <Textarea
               id='description'
-              ref={textareaRef}
-              value={noteData.description}
+              {...rest}
+              ref={(e) => {
+                ref(e);
+                textareaRef.current = e;
+              }}
               spellCheck='false'
-              onChange={handleChange('description')}
               className='max-h-[60vh] overflow-y-auto border-transparent pl-0 focus-visible:ring-0'
             />
           </DialogDescription>
@@ -118,10 +116,10 @@ function NoteDialog({ note }: Props) {
             </Button>
           </div>
           <div className='flex gap-x-2'>
-            <Button variant='ghost' onClick={handleDelete}>
+            <Button variant='ghost' onClick={onDelete}>
               Delete
             </Button>
-            <Button variant='ghost' type='submit' onClick={handleSubmit}>
+            <Button variant='ghost' type='submit' onClick={handleSubmit(onSubmit)}>
               Save
             </Button>
           </div>

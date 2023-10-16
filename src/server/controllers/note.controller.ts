@@ -1,7 +1,7 @@
 import { type Request, type Response, type NextFunction, type RequestHandler } from 'express';
 import { injectable, inject } from 'tsyringe';
 import { NoteService } from '../services/note.service';
-import { insertNoteSchema, type UpdateNote, type NewNote, type Note, updateNoteSchema } from '../../db/schemas/note.schema';
+import { insertNoteSchema, type UpdateNote, type NewNote, type Note, updateNoteSchema } from '../db/schemas/note.schema';
 import { assertIsDefined } from '../utils/isDefined.helper';
 
 @injectable()

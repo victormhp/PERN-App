@@ -2,7 +2,7 @@ import { create } from 'zustand';
 import jwt_decode from 'jwt-decode';
 import { type AxiosResponse } from 'axios';
 import { axiosAuth } from '@/libs/axios';
-import { type LoginUser, type RegisterUser } from '../../db/schemas/user.schema';
+import { type LoginUser, type RegisterUser } from '../../server/db/schemas/user.schema';
 
 interface Profile {
   id: number;

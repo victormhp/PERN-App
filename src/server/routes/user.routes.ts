@@ -2,7 +2,7 @@ import { Router } from 'express';
 import { UserController } from '../controllers/user.controller';
 import { injectable, inject } from 'tsyringe';
 import { verifyJWT } from '../middleware/jwt.middleware';
-import { registerUserSchema } from '../../db/schemas/user.schema';
+import { registerUserSchema } from '../db/schemas/user.schema';
 import { requestValidator } from '../middleware/validator.middleware';
 
 @injectable()

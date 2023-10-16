@@ -1,6 +1,6 @@
 import { create } from 'zustand';
 import { type AxiosInstance } from 'axios';
-import { type User } from '../../db/schemas/user.schema';
+import { type User } from '../../server/db/schemas/user.schema';
 
 interface State {
   users: User | null;
