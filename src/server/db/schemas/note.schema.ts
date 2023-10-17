@@ -27,18 +27,14 @@ export const insertNoteSchema = createInsertSchema(notes, {
       invalid_type_error: 'User ID must be a number',
     })
     .positive('Value must be a positive integer'),
-  title: z
-    .string({
-      required_error: 'Title is required',
-      invalid_type_error: 'Title must be a string',
-    })
-    .nonempty('Title is required'),
-  description: z
-    .string({
-      required_error: 'Description is required',
-      invalid_type_error: 'Description must be a string',
-    })
-    .nonempty('Description is required'),
+  title: z.string({
+    required_error: 'Title is required',
+    invalid_type_error: 'Title must be a string',
+  }),
+  description: z.string({
+    required_error: 'Description is required',
+    invalid_type_error: 'Description must be a string',
+  }),
 });
 
 export const updateNoteSchema = insertNoteSchema.pick({ title: true, description: true });
