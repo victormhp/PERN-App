@@ -25,17 +25,20 @@ export const userSchema = createInsertSchema(users, {
       required_error: 'Email is required',
       invalid_type_error: 'Email must be a string',
     })
-    .nonempty('Email is required')
     .email({ message: 'Invalid email address' }),
   username: z
     .string({
       required_error: 'Username is required',
       invalid_type_error: 'Username must be a string',
     })
-    .nonempty('Username is required')
     .min(4, { message: 'Must be 4 or more characters long' })
     .max(20, { message: 'Must be 20 or fewer characters long' }),
-  password: z.string().nonempty('Password is required').min(6, 'Password too short'),
+  password: z
+    .string({
+      required_error: 'Password is required',
+      invalid_type_error: 'Password must be a string',
+    })
+    .min(6, 'Password too short'),
 });
 
 export const registerUserSchema = userSchema.pick({ username: true, email: true, password: true });
