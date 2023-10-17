@@ -6,9 +6,9 @@ import 'dotenv/config';
 
 async function migrator(): Promise<void> {
   try {
-    const postgres = process.env.POSTGRES_URL ?? '';
+    const postgres = process.env.NODE_ENV === 'production' ? process.env.POSTGRES_URL : process.env.POSTGRES_LOCAL_URL;
     const client = new Client({
-      connectionString: postgres + '?sslmode=require',
+      connectionString: postgres ?? '' + '?sslmode=require',
     });
 
     await client.connect();

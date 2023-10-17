@@ -11,7 +11,7 @@
     "build": "vite build",
     "db:drop": "drizzle-kit drop",
     "db:generate": "drizzle-kit generate:pg",
-    "db:migrate": "ts-node --files src/db/migrator.ts"
+    "db:migrate": "ts-node --files src/server/db/migrator.ts"
   },
   "dependencies": {
     "@hookform/resolvers": "^3.3.2",
