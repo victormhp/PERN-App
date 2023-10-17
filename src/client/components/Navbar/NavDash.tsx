@@ -1,9 +1,8 @@
 import { useAuthStore, useMenuStore, useConfigStore } from '@/store';
 import { useClickOutside, useTheme } from '@/hooks';
 import { useRef, useState } from 'react';
-import { NavLink, Link } from 'react-router-dom';
-import { Button } from '@/components/ui';
-import { Icons } from '../Icons';
+import { NavLink, Link, useNavigate } from 'react-router-dom';
+import { Button, Icons } from '@/components';
 
 function NavDash() {
   // Main menu
@@ -12,10 +11,18 @@ function NavDash() {
   // Profile menu
   const [profileMenu, setProfileMenu] = useState(false);
   const profileMenuRef = useRef<HTMLDivElement>(null);
-  const handleLogout = useAuthStore((state) => state.logout);
   const handleProfileMenu = () => setProfileMenu((prev) => !prev);
   const handleCloseProfile = () => setProfileMenu(false);
   useClickOutside(profileMenuRef, handleCloseProfile);
+
+  // Logout
+  const navigate = useNavigate();
+  const logout = useAuthStore((state) => state.logout);
+
+  const handleLogout = async () => {
+    await logout();
+    navigate('/auth/login');
+  };
 
   // Notes view (grid or list)
   const view = useConfigStore((state) => state.view);
@@ -34,7 +41,7 @@ function NavDash() {
         <Button variant='ghost' size='icon' onClick={handleMenu}>
           <Icons.menu />
         </Button>
-        <NavLink to='/dashboard' className='inline-flex items-center'>
+        <NavLink to='/' className='inline-flex items-center'>
           <img src='/logo.png' alt='Logo' className='h-[54px] w-[54px] p-2' />
           <h1 className='hidden text-2xl font-semibold tracking-wide text-purple-500 sm:block'>
             PERN <span className='font-medium text-primary'>Notes</span>

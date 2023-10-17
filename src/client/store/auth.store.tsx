@@ -21,7 +21,7 @@ interface Actions {
   setAuth: (accessToken: string) => void;
   register: (data: RegisterUser) => Promise<AxiosResponse<any, any> | undefined>;
   login: (data: LoginUser) => Promise<AxiosResponse<any, any> | undefined>;
-  logout: () => void;
+  logout: () => Promise<AxiosResponse<any, any> | undefined>;
 }
 
 export const useAuthStore = create<State & Actions>((set) => ({
@@ -61,8 +61,9 @@ export const useAuthStore = create<State & Actions>((set) => ({
   },
   logout: async () => {
     try {
-      const res: AxiosResponse = await axiosAuth.post('/auth/logout');
+      const res = await axiosAuth.post('/auth/logout');
       set(() => ({ accessToken: '', isAuth: false }));
+
       return res;
     } catch (err) {
       console.error(err);
