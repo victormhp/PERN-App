@@ -33,6 +33,7 @@ const Textarea = forwardRef<HTMLTextAreaElement, TextareaProps>(({ className, ..
         if (typeof ref === 'function') ref(instance);
         else if (ref !== null) ref.current = instance;
       }}
+      onInput={adjustTextareaHeight}
       {...props}
     />
   );
