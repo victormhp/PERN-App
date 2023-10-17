@@ -34,7 +34,7 @@ function NavDash() {
         <Button variant='ghost' size='icon' onClick={handleMenu}>
           <Icons.menu />
         </Button>
-        <NavLink to='#' className='inline-flex items-center'>
+        <NavLink to='/dashboard' className='inline-flex items-center'>
           <img src='/logo.png' alt='Logo' className='h-[54px] w-[54px] p-2' />
           <h1 className='hidden text-2xl font-semibold tracking-wide text-purple-500 sm:block'>
             PERN <span className='font-medium text-primary'>Notes</span>
@@ -62,7 +62,7 @@ function NavDash() {
                 </li>
                 <li>
                   <Link
-                    to='/login'
+                    to='/'
                     className='cursor-pointer rounded px-3 py-2 transition-all hover:bg-muted hover:bg-opacity-60'
                     onClick={handleLogout}
                   >

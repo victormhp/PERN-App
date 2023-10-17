@@ -13,7 +13,7 @@ function NavHome() {
       </div>
       <div className='flex gap-x-4'>
         <NavLink
-          to='/login'
+          to='/'
           className='rounded-md px-4 py-2 text-sm font-semibold transition-colors hover:bg-accent hover:text-accent-foreground'
         >
           Log In

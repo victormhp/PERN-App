@@ -37,7 +37,7 @@ export const useAuthStore = create<State & Actions>((set) => ({
     })),
   register: async (data: RegisterUser) => {
     try {
-      const res = await axiosAuth.post('/auth/register', data, {
+      const res: AxiosResponse = await axiosAuth.post('/auth/register', data, {
         headers: { 'Content-Type': 'application/json' },
         withCredentials: true,
       });
@@ -49,7 +49,7 @@ export const useAuthStore = create<State & Actions>((set) => ({
   },
   login: async (data: LoginUser) => {
     try {
-      const res = await axiosAuth.post('/auth/login', data, {
+      const res: AxiosResponse = await axiosAuth.post('/auth/login', data, {
         headers: { 'Content-Type': 'application/json' },
         withCredentials: true,
       });
@@ -61,7 +61,7 @@ export const useAuthStore = create<State & Actions>((set) => ({
   },
   logout: async () => {
     try {
-      const res = await axiosAuth.post('/auth/logout');
+      const res: AxiosResponse = await axiosAuth.post('/auth/logout');
       set(() => ({ accessToken: '', isAuth: false }));
       return res;
     } catch (err) {
