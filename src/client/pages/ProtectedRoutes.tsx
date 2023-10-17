@@ -6,7 +6,7 @@ function ProtectedRoutes() {
   const location = useLocation();
 
   if (!isAuth) {
-    return <Navigate to='/' state={{ from: location }} />;
+    return <Navigate to='/auth/login' state={{ from: location }} />;
   }
 
   return <Outlet />;

@@ -8,7 +8,6 @@ const Textarea = forwardRef<HTMLTextAreaElement, TextareaProps>(({ className, ..
 
   const adjustTextareaHeight = () => {
     const textarea = textareaRef.current;
-    console.log(textarea);
 
     if (textarea) {
       textarea.style.height = 'auto';

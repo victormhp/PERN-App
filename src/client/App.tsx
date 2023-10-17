@@ -1,20 +1,20 @@
 import { createBrowserRouter, RouterProvider } from 'react-router-dom';
-import { PageNotFound, Login, Register, ProtectedRoutes, PersistLogin } from './pages';
-import { DashLayout, AuthLayout } from './layouts';
-import { Notes } from './components';
-import { useTheme } from './hooks';
+import { PageNotFound, Login, Register, ProtectedRoutes, PersistLogin } from '@/pages';
+import { DashLayout, AuthLayout } from '@/layouts';
+import { Notes } from '@/components';
+import { useTheme } from '@/hooks';
 
 const router = createBrowserRouter([
   {
-    path: '/',
+    path: '/auth',
     Component: AuthLayout,
     children: [
       {
-        path: '/',
+        path: 'login',
         Component: Login,
       },
       {
-        path: '/register',
+        path: 'register',
         Component: Register,
       },
     ],
@@ -28,11 +28,11 @@ const router = createBrowserRouter([
         Component: ProtectedRoutes,
         children: [
           {
-            path: '/dashboard',
+            path: '/',
             Component: DashLayout,
             children: [
               {
-                path: '/dashboard',
+                path: '/',
                 Component: Notes,
               },
             ],

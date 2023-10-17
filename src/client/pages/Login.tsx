@@ -24,7 +24,7 @@ function Login() {
     if (resLogin) {
       const accessToken: string = resLogin.data.accessToken;
       setAuth(accessToken);
-      navigate('/dashboard');
+      navigate('/');
     }
   };
 

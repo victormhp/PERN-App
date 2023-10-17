@@ -25,7 +25,7 @@ function Register() {
     if (resRegister) {
       const accessToken: string = resRegister.data.accessToken;
       setAuth(accessToken);
-      navigate('/dashboard');
+      navigate('/');
     }
   };
 
