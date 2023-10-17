@@ -13,7 +13,7 @@ import {
 } from '@/components';
 import { useAxiosPrivate } from '@/hooks';
 import { useNotesStore } from '@/store';
-import { useEffect, useRef, useState } from 'react';
+import { useState } from 'react';
 import type { Note, UpdateNote } from 'src/server/db/schemas';
 import { type SubmitHandler, useForm } from 'react-hook-form';
 
@@ -59,10 +59,18 @@ function NoteDialog({ note }: Props) {
       <DialogContent className='w-[80vw] p-0 sm:max-w-[550px]'>
         <DialogHeader className='p-6'>
           <DialogTitle>
-            <Input {...register('title')} maxLength={50} autoFocus className='border-transparent pl-0 text-lg focus-visible:ring-0' />
+            <Input
+              {...register('title')}
+              maxLength={50}
+              autoFocus
+              className='border-none pl-0 text-lg focus-visible:ring-0 focus-visible:ring-offset-0'
+            />
           </DialogTitle>
           <DialogDescription>
-            <Textarea {...register('description')} className='max-h-[60vh] overflow-y-auto border-transparent pl-0 focus-visible:ring-0' />
+            <Textarea
+              {...register('description')}
+              className='max-h-[60vh] overflow-y-auto border-none pl-0 focus-visible:ring-0 focus-visible:ring-offset-0'
+            />
           </DialogDescription>
         </DialogHeader>
         <DialogFooter className='px-6 py-2'>

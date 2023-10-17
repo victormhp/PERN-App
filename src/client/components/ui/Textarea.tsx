@@ -20,8 +20,6 @@ const Textarea = forwardRef<HTMLTextAreaElement, TextareaProps>(({ className, ..
     adjustTextareaHeight();
   }, []);
 
-  console.log(textareaRef.current);
-
   return (
     <textarea
       className={cn(
