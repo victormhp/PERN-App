@@ -73,7 +73,7 @@ function NoteDialog({ note }: Props) {
             />
           </DialogDescription>
         </DialogHeader>
-        <DialogFooter className='px-6 py-2'>
+        <DialogFooter className='px-4 py-2'>
           <div className='flex items-center gap-x-1'>
             <Button variant='ghost' size='icon'>
               <Icons.palette className='h-4 w-4' />

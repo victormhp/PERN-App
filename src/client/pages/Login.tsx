@@ -70,7 +70,7 @@ function Login() {
         <p className='text-cetner text-xs sm:text-sm'>
           Don&apos;t have an account?
           <Link
-            to='/register'
+            to='/auth/register'
             className='ml-2 rounded-md font-bold text-purple-500 duration-150 hover:text-purple-400 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-purple-500 focus-visible:ring-offset-2'
           >
             SIGN UP

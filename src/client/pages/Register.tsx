@@ -85,7 +85,7 @@ function Register() {
           <p className='text-cetner text-xs sm:text-sm'>
             Have an account?
             <Link
-              to='/'
+              to='/auth/login'
               className='ml-2 rounded-md font-bold text-purple-500 duration-150 hover:text-purple-400 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-purple-500 focus-visible:ring-offset-2'
             >
               LOG IN
