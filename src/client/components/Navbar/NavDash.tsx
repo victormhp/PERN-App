@@ -1,8 +1,8 @@
-import { useAuthStore, useMenuStore, useConfigStore } from '@/store';
-import { useClickOutside, useTheme } from '@/hooks';
-import { useRef, useState } from 'react';
+import { useAuthStore, useMenuStore } from '@/store';
+import { useClickOutside } from '@/hooks';
+import { Button, Icons, ToggleTheme, ToggleView } from '@/components';
 import { NavLink, Link, useNavigate } from 'react-router-dom';
-import { Button, Icons } from '@/components';
+import { useRef, useState } from 'react';
 
 function NavDash() {
   // Main menu
@@ -24,17 +24,6 @@ function NavDash() {
     navigate('/auth/login');
   };
 
-  // Notes view (grid or list)
-  const view = useConfigStore((state) => state.view);
-  const handleView = useConfigStore((state) => state.toggleView);
-  const ViewIcon = view === 'grid' ? Icons.list : Icons.grid;
-
-  // Color theme (light or dark)
-  const isDark = useConfigStore((state) => state.isDark);
-  const handleTheme = useConfigStore((state) => state.toogleDark);
-  const ThemeIcon = isDark ? Icons.sun : Icons.moon;
-  useTheme();
-
   return (
     <nav className='flex items-center justify-between bg-background px-2 sm:px-4'>
       <div className='flex items-center sm:gap-x-4'>
@@ -50,12 +39,8 @@ function NavDash() {
       </div>
       <div className='flex items-center sm:gap-x-4'>
         <div className='hidden sm:flex sm:items-center sm:gap-x-4 '>
-          <Button variant='ghost' size='icon' onClick={handleTheme}>
-            <ThemeIcon />
-          </Button>
-          <Button variant='ghost' size='icon' onClick={handleView}>
-            <ViewIcon />
-          </Button>
+          <ToggleTheme />
+          <ToggleView />
         </div>
         <div className='relative' ref={profileMenuRef}>
           <div className='mx-2 h-7 w-7 cursor-pointer rounded-full bg-purple-500' tabIndex={0} onClick={handleProfileMenu} />
