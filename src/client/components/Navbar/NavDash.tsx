@@ -38,14 +38,16 @@ function NavDash() {
         </NavLink>
       </div>
       <div className='flex items-center sm:gap-x-4'>
-        <div className='hidden sm:flex sm:items-center sm:gap-x-4 '>
+        <div>
           <ToggleTheme />
+        </div>
+        <div className='hidden sm:block'>
           <ToggleView />
         </div>
         <div className='relative' ref={profileMenuRef}>
           <div className='mx-2 h-7 w-7 cursor-pointer rounded-full bg-purple-500' tabIndex={0} onClick={handleProfileMenu} />
           {profileMenu ? (
-            <div className='absolute right-2 top-11 z-50 rounded-md border border-border bg-background px-2 py-3 text-center'>
+            <div className='absolute right-2 top-11 z-50 w-[200px] rounded-md border border-border bg-background px-2 py-3 text-center'>
               <ul className='flex flex-col gap-4'>
                 <li>
                   <Link to='/' className='cursor-pointer rounded px-3 py-2 transition-all hover:bg-muted hover:bg-opacity-60'>
