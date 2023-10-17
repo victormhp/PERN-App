@@ -1,8 +1,9 @@
-import { Input, Button, Form, FormField, FormItem, FormLabel, FormControl, FormMessage } from '@/components';
+import { Input, Button, Form, FormField, FormItem, FormLabel, FormControl, FormMessage, Icons } from '@/components';
 import { Link, useNavigate } from 'react-router-dom';
 import { useAuthStore } from '@/store';
-import { type RegisterUser } from 'src/server/db/schemas';
+import { type RegisterUser, registerUserSchema } from '../../server/db/schemas';
 import { useForm } from 'react-hook-form';
+import { zodResolver } from '@hookform/resolvers/zod';
 
 function Register() {
   const setAuth = useAuthStore((state) => state.setAuth);
@@ -10,6 +11,7 @@ function Register() {
   const navigate = useNavigate();
 
   const form = useForm<RegisterUser>({
+    resolver: zodResolver(registerUserSchema),
     defaultValues: {
       username: '',
       email: '',
@@ -74,9 +76,10 @@ function Register() {
           <div className='mb-5'>
             <Button
               type='submit'
+              disabled={form.formState.isSubmitting}
               className='w-64 bg-purple-500 font-semibold text-zinc-50 transition-transform hover:scale-95 hover:bg-purple-500 focus-visible:scale-95 focus-visible:bg-purple-500 focus-visible:ring-purple-500'
             >
-              REGISTER
+              {form.formState.isSubmitting ? <Icons.loader className='animate-spin' /> : 'REGISTER'}
             </Button>
           </div>
           <p className='text-cetner text-xs sm:text-sm'>
