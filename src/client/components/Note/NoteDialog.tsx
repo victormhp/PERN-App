@@ -13,7 +13,7 @@ import {
 } from '@/components';
 import { useAxiosPrivate } from '@/hooks';
 import { useNotesStore } from '@/store';
-import { useEffect, useRef, type MouseEvent, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import type { Note, UpdateNote } from 'src/server/db/schemas';
 import { type SubmitHandler, useForm } from 'react-hook-form';
 
@@ -24,25 +24,6 @@ interface Props {
 function NoteDialog({ note }: Props) {
   const axiosPrivate = useAxiosPrivate();
 
-  // Update notes
-  const updateNote = useNotesStore((state) => state.updateNote);
-  const [openDialog, setOpenDialog] = useState(false);
-  const toggleDialog = () => setOpenDialog((prev) => !prev);
-
-  // Adjust text area
-  const textareaRef = useRef<HTMLTextAreaElement | null>(null);
-  const adjustTextareaHeight = () => {
-    const textarea = textareaRef.current;
-    if (textarea) {
-      textarea.style.height = 'auto';
-      textarea.style.height = `${textarea.scrollHeight + 16}px`;
-    }
-  };
-
-  useEffect(() => {
-    adjustTextareaHeight();
-  }, [openDialog]);
-
   const { register, handleSubmit } = useForm<UpdateNote>({
     defaultValues: {
       title: note.title,
@@ -50,23 +31,27 @@ function NoteDialog({ note }: Props) {
     },
   });
 
-  const { ref, ...rest } = register('description');
+  // Adjust text area
+  const [openDialog, setOpenDialog] = useState(false);
+  const toggleDialog = () => {
+    setOpenDialog((prev) => !prev);
+  };
 
-  const onSubmit: SubmitHandler<UpdateNote> = async (noteData) => {
+  // Update note
+  const updateNote = useNotesStore((state) => state.updateNote);
+  const onUpdate: SubmitHandler<UpdateNote> = async (noteData) => {
     await updateNote(note.id, noteData, axiosPrivate);
     toggleDialog();
   };
 
-  // Delete notes
+  // Delete note
   const deleteNote = useNotesStore((state) => state.deleteNote);
-  const onDelete = async (event: MouseEvent<HTMLButtonElement>) => {
-    await deleteNote(note.id, axiosPrivate);
-  };
+  const onDelete = async () => await deleteNote(note.id, axiosPrivate);
 
   return (
     <Dialog key={note.id} open={openDialog} onOpenChange={toggleDialog}>
       <DialogTrigger asChild>
-        <div className='mb-4 max-h-fit overflow-hidden whitespace-pre-wrap break-words rounded-lg border border-border bg-background px-6 py-4'>
+        <div className='mb-4 max-h-[50vh] overflow-hidden whitespace-pre-wrap break-words rounded-lg border border-border bg-background px-6 py-4'>
           <h4 className='mb-2 font-semibold'>{note.title}</h4>
           <p className='select-none'>{note.description}</p>
         </div>
@@ -74,29 +59,13 @@ function NoteDialog({ note }: Props) {
       <DialogContent className='w-[80vw] p-0 sm:max-w-[550px]'>
         <DialogHeader className='p-6'>
           <DialogTitle>
-            <Input
-              id='title'
-              {...register('title')}
-              autoFocus
-              spellCheck='false'
-              maxLength={50}
-              className='border-transparent pl-0 text-lg focus-visible:ring-0'
-            />
+            <Input {...register('title')} maxLength={50} autoFocus className='border-transparent pl-0 text-lg focus-visible:ring-0' />
           </DialogTitle>
           <DialogDescription>
-            <Textarea
-              id='description'
-              {...rest}
-              ref={(e) => {
-                ref(e);
-                textareaRef.current = e;
-              }}
-              spellCheck='false'
-              className='max-h-[60vh] overflow-y-auto border-transparent pl-0 focus-visible:ring-0'
-            />
+            <Textarea {...register('description')} className='max-h-[60vh] overflow-y-auto border-transparent pl-0 focus-visible:ring-0' />
           </DialogDescription>
         </DialogHeader>
-        <DialogFooter className='px-6 py-1'>
+        <DialogFooter className='px-6 py-2'>
           <div className='flex items-center gap-x-1'>
             <Button variant='ghost' size='icon'>
               <Icons.palette className='h-4 w-4' />
@@ -119,7 +88,7 @@ function NoteDialog({ note }: Props) {
             <Button variant='ghost' onClick={onDelete}>
               Delete
             </Button>
-            <Button variant='ghost' type='submit' onClick={handleSubmit(onSubmit)}>
+            <Button variant='ghost' type='submit' onClick={handleSubmit(onUpdate)}>
               Save
             </Button>
           </div>
