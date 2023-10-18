@@ -1,8 +1,10 @@
+import { type LucideIcon } from 'lucide-react';
+
 interface Props {
   name: string;
   active: string;
   isMenuOpen: boolean;
-  Icon: React.ComponentType;
+  Icon: LucideIcon;
   onClick?: (event: React.MouseEvent<HTMLDivElement, MouseEvent>) => void;
 }
 

@@ -3,10 +3,11 @@ import { Icons } from './Icons';
 import { useState } from 'react';
 import { MenuButton } from '@/components/ui';
 import { cn } from '@/utils';
+import { type LucideIcon } from 'lucide-react';
 
 interface MenuSection {
   name: string;
-  Icon: React.ComponentType;
+  Icon: LucideIcon;
 }
 
 const menuSections: MenuSection[] = [
