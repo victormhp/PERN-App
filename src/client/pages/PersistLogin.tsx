@@ -1,5 +1,6 @@
 import { Outlet } from 'react-router-dom';
 import { useState, useEffect } from 'react';
+import { PageLoading } from '.';
 import { useAuthStore } from '@/store';
 import { useRefreshToken } from '@/hooks';
 
@@ -28,7 +29,7 @@ function PersistLogin() {
     };
   }, []);
 
-  return <>{isLoading ? <p>Loading</p> : <Outlet />}</>;
+  return <>{isLoading ? <PageLoading /> : <Outlet />}</>;
 }
 
 export default PersistLogin;

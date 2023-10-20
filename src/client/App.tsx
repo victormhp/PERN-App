@@ -1,39 +1,59 @@
-import { createBrowserRouter, RouterProvider } from 'react-router-dom';
-import { PageNotFound, Login, Register, ProtectedRoutes, PersistLogin } from '@/pages';
-import { DashLayout, AuthLayout } from '@/layouts';
-import { Notes } from '@/components';
+import { PageLoading } from '@/pages';
 import { useTheme } from '@/hooks';
+import { createBrowserRouter, RouterProvider } from 'react-router-dom';
+import { useEffect, useState } from 'react';
 
 const router = createBrowserRouter([
   {
     path: '/auth',
-    Component: AuthLayout,
+    async lazy() {
+      const { AuthLayout } = await import('./layouts');
+      return { Component: AuthLayout };
+    },
     children: [
       {
         path: 'login',
-        Component: Login,
+        async lazy() {
+          const { Login } = await import('./pages');
+          return { Component: Login };
+        },
       },
       {
         path: 'register',
-        Component: Register,
+        async lazy() {
+          const { Register } = await import('./pages');
+          return { Component: Register };
+        },
       },
     ],
   },
   {
     path: '/',
-    Component: PersistLogin,
+    async lazy() {
+      const { PersistLogin } = await import('./pages');
+      return { Component: PersistLogin };
+    },
     children: [
       {
         path: '/',
-        Component: ProtectedRoutes,
+        async lazy() {
+          const { ProtectedRoutes } = await import('./pages');
+          return { Component: ProtectedRoutes };
+        },
         children: [
           {
             path: '/',
-            Component: DashLayout,
+            async lazy() {
+              const { DashLayout } = await import('./layouts');
+              return { Component: DashLayout };
+            },
             children: [
               {
                 path: '/',
-                Component: Notes,
+                async lazy() {
+                  const { Notes } = await import('./components');
+                  return { Component: Notes };
+                },
               },
             ],
           },
@@ -43,13 +63,25 @@ const router = createBrowserRouter([
   },
   {
     path: '*',
-    Component: PageNotFound,
+    async lazy() {
+      const { PageLoading } = await import('./pages');
+      return { Component: PageLoading };
+    },
   },
 ]);
 
 function App() {
   useTheme();
-  return <RouterProvider router={router} />;
+
+  const [isLoading, setIsLoading] = useState(true);
+
+  useEffect(() => {
+    setTimeout(() => {
+      setIsLoading(false);
+    }, 2000);
+  }, []);
+
+  return isLoading ? <PageLoading /> : <RouterProvider router={router} />;
 }
 
 export default App;
